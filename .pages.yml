@@ -1,6 +1,6 @@
 media:
-  input: assets/images
-  output: /assets/images
+  input: assets
+  output: /assets
 
 content:
   - name: site
@@ -15,8 +15,20 @@ content:
         fields:
           - { name: name, label: Business name, type: string }
           - { name: location, label: Location, type: string }
-          - { name: tagline, label: Hero headline, type: string }
-          - { name: intro, label: Hero intro, type: text }
+          - { name: tagline, label: Brand tagline, type: string }
+          - { name: intro, label: Brand intro, type: text }
+      - name: heroSlides
+        label: Home hero
+        type: object
+        list: true
+        fields:
+          - { name: kicker, label: Small heading, type: string }
+          - { name: title, label: Main title, type: string }
+          - { name: accent, label: Accent title, type: string }
+          - { name: intro, label: Description, type: text }
+          - { name: image, label: Photo, type: image }
+          - { name: ctaLabel, label: Button text, type: string }
+          - { name: ctaHref, label: Button link, type: string }
       - name: contact
         label: Contact & socials
         type: object
@@ -24,6 +36,15 @@ content:
           - { name: whatsapp, label: WhatsApp number, type: string }
           - { name: instagram, label: Instagram URL, type: string }
           - { name: tiktok, label: TikTok URL, type: string }
+      - name: business
+        label: Business details
+        type: object
+        fields:
+          - { name: email, label: Email, type: string }
+          - { name: address, label: Address, type: string }
+          - { name: postcodeCity, label: Postcode and city, type: string }
+          - { name: kvk, label: KvK, type: string }
+          - { name: vat, label: VAT number, type: string }
       - name: services
         label: Services
         type: object
@@ -31,6 +52,14 @@ content:
         fields:
           - { name: name, label: Name, type: string }
           - { name: description, label: Description, type: text }
+          - { name: image, label: Image, type: image }
+      - name: gallery
+        label: Portfolio
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Caption, type: string }
+          - { name: treatment, label: Booking treatment, type: string }
           - { name: image, label: Image, type: image }
       - name: pricing
         label: Pricing
@@ -83,3 +112,7 @@ content:
         fields:
           - { name: headline, label: Headline, type: string }
           - { name: text, label: Description, type: text }
+          - { name: firstTimeSlot, label: First time slot, type: string }
+          - { name: lastTimeSlot, label: Last time slot, type: string }
+          - { name: slotMinutes, label: Slot length in minutes, type: number }
+          - { name: availabilityNote, label: Availability note, type: text }

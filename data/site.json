@@ -286,6 +286,98 @@
   ],
   "booking": {
     "headline": "Request your appointment",
-    "text": "Choose your treatment, date and a 15-minute time slot. WhatsApp opens with your request ready to send."
+    "text": "Choose your treatment, date and a 15-minute time slot. WhatsApp opens with your request ready to send.",
+    "firstTimeSlot": "08:00",
+    "lastTimeSlot": "21:00",
+    "slotMinutes": 15,
+    "availabilityNote": "Requested times are subject to confirmation via WhatsApp."
+  },
+  "heroSlides": [
+    {
+      "kicker": "Braids · locs · curls",
+      "title": "Hair with",
+      "accent": "intention.",
+      "intro": "Protective styling, clean detail and a finish that feels like you.",
+      "image": "/assets/gallery/fulani-honey.webp",
+      "ctaLabel": "Explore services",
+      "ctaHref": "/services"
+    },
+    {
+      "kicker": "Recent work",
+      "title": "See the",
+      "accent": "detail.",
+      "intro": "Real clients, real styles and the work behind the finish.",
+      "image": "/assets/gallery/cornrows-ringlight.webp",
+      "ctaLabel": "View recent work",
+      "ctaHref": "/work"
+    },
+    {
+      "kicker": "Ready when you are",
+      "title": "Your next look",
+      "accent": "starts here.",
+      "intro": "Choose a treatment and send your appointment request through WhatsApp.",
+      "image": "/assets/gallery/afro-shape.webp",
+      "ctaLabel": "Book appointment",
+      "ctaHref": "/book"
+    }
+  ],
+  "gallery": [
+    {
+      "title": "Fulani twist",
+      "treatment": "Fulani braids",
+      "image": "/assets/gallery/fulani-honey.webp"
+    },
+    {
+      "title": "6 cornrows",
+      "treatment": "Cornrows",
+      "image": "/assets/gallery/cornrows-side.webp"
+    },
+    {
+      "title": "Twist details",
+      "treatment": "Twist",
+      "image": "/assets/gallery/twists-gold.webp"
+    },
+    {
+      "title": "Design cornrows",
+      "treatment": "Cornrows with design",
+      "image": "/assets/gallery/cornrows-design.webp"
+    },
+    {
+      "title": "Afro shape",
+      "treatment": "Haircut",
+      "image": "/assets/gallery/afro-shape.webp"
+    },
+    {
+      "title": "Fulani braids",
+      "treatment": "Fulani braids",
+      "image": "/assets/gallery/fulani-warm.webp"
+    },
+    {
+      "title": "Pattern work",
+      "treatment": "Cornrows with design",
+      "image": "/assets/gallery/cornrows-ringlight.webp"
+    },
+    {
+      "title": "Classic cornrows",
+      "treatment": "Cornrows",
+      "image": "/assets/gallery/cornrows-warm.webp"
+    },
+    {
+      "title": "Clean finish",
+      "treatment": "Cornrows",
+      "image": "/assets/gallery/cornrows-portrait.webp"
+    },
+    {
+      "title": "Precision parts",
+      "treatment": "Cornrows",
+      "image": "/assets/gallery/cornrows-closeup.webp"
+    }
+  ],
+  "business": {
+    "email": "",
+    "address": "",
+    "postcodeCity": "Rotterdam",
+    "kvk": "",
+    "vat": ""
   }
 }
