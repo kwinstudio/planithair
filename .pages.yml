@@ -1,7 +1,6 @@
 media:
   input: assets
   output: /assets
-
 content:
   - name: site
     label: Planit Hair Website
@@ -15,8 +14,8 @@ content:
         fields:
           - { name: name, label: Business name, type: string }
           - { name: location, label: Location, type: string }
-          - { name: tagline, label: Brand tagline, type: string }
-          - { name: intro, label: Brand intro, type: text }
+          - { name: tagline, label: Tagline, type: string }
+          - { name: intro, label: Intro, type: text }
       - name: heroSlides
         label: Home hero
         type: object
@@ -114,5 +113,5 @@ content:
           - { name: text, label: Description, type: text }
           - { name: firstTimeSlot, label: First time slot, type: string }
           - { name: lastTimeSlot, label: Last time slot, type: string }
-          - { name: slotMinutes, label: Slot length in minutes, type: number }
+          - { name: slotMinutes, label: Slot length, type: number }
           - { name: availabilityNote, label: Availability note, type: text }
