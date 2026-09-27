@@ -307,7 +307,7 @@
       "title": "See the",
       "accent": "detail.",
       "intro": "Clean sections and precise lines, designed around the person wearing them.",
-      "image": "/assets/gallery/cornrows-ringlight.webp",
+      "image": "/assets/images/style-cornrows.webp",
       "ctaLabel": "View recent work",
       "ctaHref": "/work"
     },
@@ -316,7 +316,7 @@
       "title": "Movement with",
       "accent": "character.",
       "intro": "Soft movement, considered tension and a finish that still feels personal.",
-      "image": "/assets/gallery/twists-gold.webp",
+      "image": "/assets/images/style-twists.webp",
       "ctaLabel": "Explore styles",
       "ctaHref": "/services"
     },
@@ -325,7 +325,7 @@
       "title": "Designed from",
       "accent": "every angle.",
       "intro": "The small details are what make the whole style feel finished.",
-      "image": "/assets/gallery/cornrows-design.webp",
+      "image": "/assets/images/style-curls.webp",
       "ctaLabel": "See the portfolio",
       "ctaHref": "/work"
     },
@@ -334,7 +334,7 @@
       "title": "Your next look",
       "accent": "starts here.",
       "intro": "Choose a treatment and send your appointment request in a few taps.",
-      "image": "/assets/gallery/afro-shape.webp",
+      "image": "/assets/images/style-afro.webp",
       "ctaLabel": "Book appointment",
       "ctaHref": "/book"
     }
