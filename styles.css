@@ -1045,3 +1045,17 @@ img,video{max-width:100%}
   .instagram-promo-copy{padding:26px 20px 30px!important}
   .instagram-promo-copy h3{font-size:40px!important}
 }
+
+
+/* ===== Mobile content visibility hotfix ===== */
+@media(max-width:900px){
+  .reveal{
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+@media(max-width:620px){
+  .hero-story{
+    height:360svh!important;
+  }
+}

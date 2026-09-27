@@ -1,7 +1,7 @@
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const escapeHtml=(v='')=>String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 let siteData=null;
-async function loadSite(){try{const r=await fetch('/data/site.json',{cache:'no-store'});siteData=await r.json()}catch(e){console.error(e);siteData={}}renderSite()}
+async function loadSite(){try{const r=await fetch('/data/site.json',{cache:'no-store'});if(!r.ok)throw new Error(`site.json ${r.status}`);siteData=await r.json()}catch(e){console.error('Planit data load failed',e);siteData={}}try{renderSite()}catch(e){console.error('Planit render failed',e);document.querySelectorAll('.reveal').forEach(x=>x.classList.add('is-visible'))}}
 function renderSite(){
  const d=siteData||{};
  if(d.heroSlides){$$('[data-hero-slide]').forEach((slide,i)=>{const item=d.heroSlides[i],img=$('img',slide);if(item&&img)img.src=item.image});$$('[data-hero-panel]').forEach((panel,i)=>{const item=d.heroSlides[i];if(!item)return;const map=[['[data-hero-kicker]','kicker'],['[data-hero-title]','title'],['[data-hero-accent]','accent'],['[data-hero-intro]','intro']];map.forEach(([sel,key])=>{const el=$(sel,panel);if(el)el.textContent=item[key]||''});const c=$('[data-hero-cta]',panel);if(c){c.textContent=item.ctaLabel||'Explore';c.href=item.ctaHref||'/'}})}
@@ -9,15 +9,15 @@ function renderSite(){
  const care=$('#aftercareList');if(care&&d.aftercare)care.innerHTML=d.aftercare.map((x,i)=>`<article class="care-row reveal"><span>0${i+1}</span><h3>${escapeHtml(x.title)}</h3><p>${escapeHtml(x.text)}</p></article>`).join('');
  renderGallery(d);initGalleryViewer();renderPrices('women');renderBooking(d);syncLinks(d);wireBookButtons();observeReveals()
 }
-function renderGallery(d){$('[data-gallery]').forEach(el=>{const limit=Number(el.dataset.galleryLimit||0),items=limit?(d.gallery||[]).slice(0,limit):(d.gallery||[]);el.innerHTML=items.map((x,i)=>`<button class="gallery-card reveal" type="button" data-gallery-card data-gallery-index="${i}" data-gallery-treatment="${escapeHtml(x.treatment||'')}" aria-label="View ${escapeHtml(x.title)}"><img src="${x.image}" alt="${escapeHtml(x.title)} by Planit Hair" loading="lazy"><span class="gallery-card-shade"></span><span class="gallery-card-meta"><small>${String(i+1).padStart(2,'0')}</small><strong>${escapeHtml(x.title)}</strong><i>↗</i></span></button>`).join('')})}
+function renderGallery(d){$$('[data-gallery]').forEach(el=>{const limit=Number(el.dataset.galleryLimit||0),items=limit?(d.gallery||[]).slice(0,limit):(d.gallery||[]);el.innerHTML=items.map((x,i)=>`<button class="gallery-card reveal" type="button" data-gallery-card data-gallery-index="${i}" data-gallery-treatment="${escapeHtml(x.treatment||'')}" aria-label="View ${escapeHtml(x.title)}"><img src="${x.image}" alt="${escapeHtml(x.title)} by Planit Hair" loading="lazy"><span class="gallery-card-shade"></span><span class="gallery-card-meta"><small>${String(i+1).padStart(2,'0')}</small><strong>${escapeHtml(x.title)}</strong><i>↗</i></span></button>`).join('')})}
 function initGalleryViewer(){
-  const cards=$('[data-gallery-card]');if(!cards.length)return;
+  const cards=$$('[data-gallery-card]');if(!cards.length)return;
   let dialog=$('#galleryViewer');
   if(!dialog){dialog=document.createElement('dialog');dialog.id='galleryViewer';dialog.className='gallery-viewer';dialog.innerHTML=`<button class="gallery-viewer-close" type="button" aria-label="Close">×</button><button class="gallery-viewer-nav gallery-viewer-prev" type="button" aria-label="Previous photo">←</button><figure><img alt=""><figcaption><span></span><strong></strong></figcaption></figure><button class="gallery-viewer-nav gallery-viewer-next" type="button" aria-label="Next photo">→</button><button class="button gallery-viewer-book" type="button">Book this style</button>`;document.body.append(dialog)}
   const image=$('img',dialog),num=$('figcaption span',dialog),title=$('figcaption strong',dialog);let current=0;
   const paint=()=>{const card=cards[current],img=$('img',card);if(!card||!img)return;image.src=img.currentSrc||img.src;image.alt=img.alt;num.textContent=`${String(current+1).padStart(2,'0')} / ${String(cards.length).padStart(2,'0')}`;title.textContent=$('strong',card)?.textContent||'Recent work'};
   const open=i=>{current=(i+cards.length)%cards.length;paint();dialog.showModal?.()||dialog.setAttribute('open','')};
-  const close=()=>dialog.close?.();
+  const close=()=>{if(typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open')};
   const move=d=>{current=(current+d+cards.length)%cards.length;paint()};
   cards.forEach((card,i)=>card.addEventListener('click',()=>open(i)));
   $('.gallery-viewer-close',dialog)?.addEventListener('click',close);
@@ -58,7 +58,7 @@ function scheduleSnap(){if(!hero||reduce.matches||snapLock)return;clearTimeout(s
 if(hero){paintHero();addEventListener('scroll',()=>{requestHeroPaint();scheduleSnap()},{passive:true});addEventListener('resize',requestHeroPaint,{passive:true})}
 dots.forEach((dot,i)=>dot.addEventListener('click',()=>scrollHeroTo(i)));
 next?.addEventListener('click',()=>{if(heroNearest<slides.length-1)scrollHeroTo(heroNearest+1);else hero?.nextElementSibling?.scrollIntoView({behavior:'smooth',block:'start'})});
-const tiktokTrack=$('#tiktokTrack'),tiktokSlides=tiktokTrack?$('[data-tiktok-slide]',tiktokTrack):[],tiktokDots=$('[data-tiktok-dot]'),tiktokPrev=$('[data-tiktok-prev]'),tiktokNext=$('[data-tiktok-next]');
+const tiktokTrack=$('#tiktokTrack'),tiktokSlides=tiktokTrack?$$('[data-tiktok-slide]',tiktokTrack):[],tiktokDots=$$('[data-tiktok-dot]'),tiktokPrev=$('[data-tiktok-prev]'),tiktokNext=$('[data-tiktok-next]');
 let tiktokIndex=0,tiktokScrollTimer=0;
 function setTikTokIndex(index,scroll=true){
   if(!tiktokSlides.length)return;
