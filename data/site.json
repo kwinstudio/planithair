@@ -303,12 +303,30 @@
       "ctaHref": "/services"
     },
     {
-      "kicker": "Recent work",
+      "kicker": "Precision",
       "title": "See the",
       "accent": "detail.",
-      "intro": "Real clients, real styles and the work behind the finish.",
+      "intro": "Clean sections and precise lines, designed around the person wearing them.",
       "image": "/assets/gallery/cornrows-ringlight.webp",
       "ctaLabel": "View recent work",
+      "ctaHref": "/work"
+    },
+    {
+      "kicker": "Texture",
+      "title": "Movement with",
+      "accent": "character.",
+      "intro": "Soft movement, considered tension and a finish that still feels personal.",
+      "image": "/assets/gallery/twists-gold.webp",
+      "ctaLabel": "Explore styles",
+      "ctaHref": "/services"
+    },
+    {
+      "kicker": "Detail work",
+      "title": "Designed from",
+      "accent": "every angle.",
+      "intro": "The small details are what make the whole style feel finished.",
+      "image": "/assets/gallery/cornrows-design.webp",
+      "ctaLabel": "See the portfolio",
       "ctaHref": "/work"
     },
     {
