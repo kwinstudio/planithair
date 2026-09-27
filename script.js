@@ -1,6 +1,16 @@
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const escapeHtml=(v='')=>String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 let siteData=null;
+function installImageFallbacks(){
+  document.addEventListener('error',event=>{
+    const img=event.target;
+    if(!(img instanceof HTMLImageElement)||img.dataset.fallbackApplied)return;
+    if(!img.matches('.hero-slide img,.instagram-collage img,.page-hero-media img,.style-card img'))return;
+    img.dataset.fallbackApplied='1';
+    img.src='/assets/images/hero.webp';
+  },true);
+}
+installImageFallbacks();
 async function loadSite(){try{const r=await fetch('/data/site.json',{cache:'no-store'});if(!r.ok)throw new Error(`site.json ${r.status}`);siteData=await r.json()}catch(e){console.error('Planit data load failed',e);siteData={}}try{renderSite()}catch(e){console.error('Planit render failed',e);document.querySelectorAll('.reveal').forEach(x=>x.classList.add('is-visible'))}}
 function renderSite(){
  const d=siteData||{};
@@ -9,7 +19,7 @@ function renderSite(){
  const care=$('#aftercareList');if(care&&d.aftercare)care.innerHTML=d.aftercare.map((x,i)=>`<article class="care-row reveal"><span>0${i+1}</span><h3>${escapeHtml(x.title)}</h3><p>${escapeHtml(x.text)}</p></article>`).join('');
  renderGallery(d);initGalleryViewer();renderPrices('women');renderBooking(d);syncLinks(d);wireBookButtons();observeReveals()
 }
-function renderGallery(d){$$('[data-gallery]').forEach(el=>{const limit=Number(el.dataset.galleryLimit||0),items=limit?(d.gallery||[]).slice(0,limit):(d.gallery||[]);el.innerHTML=items.map((x,i)=>`<button class="gallery-card reveal" type="button" data-gallery-card data-gallery-index="${i}" data-gallery-treatment="${escapeHtml(x.treatment||'')}" aria-label="View ${escapeHtml(x.title)}"><img src="${x.image}" alt="${escapeHtml(x.title)} by Planit Hair" loading="lazy"><span class="gallery-card-shade"></span><span class="gallery-card-meta"><small>${String(i+1).padStart(2,'0')}</small><strong>${escapeHtml(x.title)}</strong><i>↗</i></span></button>`).join('')})}
+function renderGallery(d){$('[data-gallery]').forEach(el=>{const limit=Number(el.dataset.galleryLimit||0),items=limit?(d.gallery||[]).slice(0,limit):(d.gallery||[]);el.innerHTML=items.map((x,i)=>`<button class="gallery-card reveal" type="button" data-gallery-card data-gallery-index="${i}" data-gallery-treatment="${escapeHtml(x.treatment||'')}" aria-label="View ${escapeHtml(x.title)}"><img src="${x.image}" alt="${escapeHtml(x.title)} by Planit Hair" loading="lazy" decoding="async"><span class="gallery-card-shade"></span><span class="gallery-card-meta"><small>${String(i+1).padStart(2,'0')}</small><strong>${escapeHtml(x.title)}</strong><i>↗</i></span></button>`).join('');$('img',el).forEach(img=>img.addEventListener('error',()=>{if(img.dataset.fallbackApplied)return;img.dataset.fallbackApplied='1';img.src='/assets/images/hero.webp'},{once:true}))})}
 function initGalleryViewer(){
   const cards=$$('[data-gallery-card]');if(!cards.length)return;
   let dialog=$('#galleryViewer');

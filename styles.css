@@ -1059,3 +1059,122 @@ img,video{max-width:100%}
     height:360svh!important;
   }
 }
+
+
+/* ===== Screenshot QA fixes: portfolio + Instagram + mobile CTA ===== */
+@media(max-width:900px){
+  .instagram-promo{
+    grid-template-columns:minmax(0,1fr)!important;
+    min-height:0!important;
+  }
+  .instagram-collage{
+    min-height:0!important;
+  }
+}
+@media(max-width:620px){
+  .page-hero{
+    padding-top:58px!important;
+  }
+  .page-hero .section-kicker{
+    margin-top:0!important;
+  }
+
+  .gallery-grid{
+    width:calc(100% - 32px)!important;
+    gap:10px!important;
+  }
+  .gallery-card{
+    background:#d7ddd5!important;
+  }
+  .gallery-card img{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+  .gallery-card:nth-child(3n+1){
+    aspect-ratio:4/5!important;
+  }
+
+  .instagram-promo{
+    display:flex!important;
+    flex-direction:column!important;
+    width:100%!important;
+    min-height:0!important;
+    margin-top:34px!important;
+    overflow:hidden!important;
+    border-radius:22px!important;
+    background:var(--sage)!important;
+  }
+  .instagram-collage{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:1fr!important;
+    width:100%!important;
+    height:220px!important;
+    min-height:220px!important;
+    overflow:hidden!important;
+    order:1!important;
+  }
+  .instagram-collage img,
+  .instagram-collage img:first-child{
+    position:static!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    display:block!important;
+    width:100%!important;
+    height:220px!important;
+    min-width:0!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+  .instagram-promo-copy{
+    position:relative!important;
+    z-index:3!important;
+    order:2!important;
+    width:100%!important;
+    padding:30px 22px 32px!important;
+    background:var(--sage)!important;
+    align-self:stretch!important;
+  }
+  .instagram-promo-copy h3{
+    margin:0!important;
+    max-width:8.5ch!important;
+    font-size:clamp(39px,11.5vw,48px)!important;
+    line-height:.94!important;
+  }
+  .instagram-promo-copy>p:not(.section-kicker){
+    max-width:31ch!important;
+    margin-top:18px!important;
+    font-size:15px!important;
+    line-height:1.55!important;
+  }
+  .instagram-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:16px!important;
+    width:100%!important;
+    margin-top:24px!important;
+  }
+  .instagram-actions .button{
+    width:100%!important;
+    min-height:52px!important;
+  }
+
+  .mobile-book{
+    left:16px!important;
+    right:16px!important;
+    bottom:max(12px,env(safe-area-inset-bottom))!important;
+    width:auto!important;
+    max-width:420px!important;
+    min-height:54px!important;
+    margin-inline:auto!important;
+    padding:0 20px!important;
+    font-size:14px!important;
+    box-shadow:0 10px 28px rgba(15,40,29,.2)!important;
+  }
+  .site-footer{
+    padding-bottom:112px!important;
+  }
+}
