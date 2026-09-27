@@ -134,11 +134,49 @@ if('IntersectionObserver' in window){
   chunkedVideos.forEach(video=>hydrateChunkedVideo(video).catch(()=>{}));
 }
 
-const hero=$('.hero');
+const heroStory=$('.hero-story');
 const mobileBook=$('.mobile-book');
-if(hero&&mobileBook&&'IntersectionObserver' in window){
+const heroSlides=$('[data-hero-slide]');
+const heroPanels=$('[data-hero-panel]');
+const heroProgress=$('[data-hero-progress]');
+let heroFrame=-1;
+let heroRaf=0;
+
+function setHeroFrame(next){
+  if(next===heroFrame) return;
+  heroFrame=next;
+  heroSlides.forEach((slide,index)=>slide.classList.toggle('is-active',index===next));
+  heroPanels.forEach((panel,index)=>{
+    const active=index===next;
+    panel.classList.toggle('is-active',active);
+    panel.setAttribute('aria-hidden',String(!active));
+  });
+  heroProgress.forEach((item,index)=>item.classList.toggle('is-active',index===next));
+}
+
+function updateHeroStory(){
+  heroRaf=0;
+  if(!heroStory||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const rect=heroStory.getBoundingClientRect();
+  const travel=Math.max(1,heroStory.offsetHeight-window.innerHeight);
+  const progress=Math.min(1,Math.max(0,-rect.top/travel));
+  setHeroFrame(Math.min(2,Math.floor(progress*3)));
+}
+
+function requestHeroUpdate(){
+  if(!heroRaf) heroRaf=requestAnimationFrame(updateHeroStory);
+}
+
+if(heroStory){
+  setHeroFrame(0);
+  updateHeroStory();
+  addEventListener('scroll',requestHeroUpdate,{passive:true});
+  addEventListener('resize',requestHeroUpdate,{passive:true});
+}
+
+if(heroStory&&mobileBook&&'IntersectionObserver' in window){
   const heroBookObserver=new IntersectionObserver(([entry])=>{
-    mobileBook.classList.toggle('is-hidden',entry.isIntersecting&&entry.intersectionRatio>.2);
-  },{threshold:[0,.2,.5,1]});
-  heroBookObserver.observe(hero);
+    mobileBook.classList.toggle('is-hidden',entry.isIntersecting);
+  },{threshold:0});
+  heroBookObserver.observe(heroStory);
 }
