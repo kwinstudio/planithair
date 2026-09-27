@@ -1,0 +1,291 @@
+{
+  "brand": {
+    "name": "Planit Hair",
+    "location": "Rotterdam North",
+    "tagline": "Braids, locs & curls — styled with intention.",
+    "intro": "Protective styles, defined curls and detail-focused haircuts in Rotterdam North. Explore the work, check prices and request your appointment in a few taps."
+  },
+  "contact": {
+    "whatsapp": "31634893324",
+    "instagram": "https://www.instagram.com/planithair",
+    "tiktok": "https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1"
+  },
+  "services": [
+    {
+      "name": "Cornrows",
+      "description": "Clean parts, precise lines and styles that suit your face and texture.",
+      "image": "/assets/images/style-cornrows.webp"
+    },
+    {
+      "name": "Twists & braids",
+      "description": "Protective styling with a soft finish and attention to tension, balance and detail.",
+      "image": "/assets/images/style-twists.webp"
+    },
+    {
+      "name": "Curls",
+      "description": "Shape, definition and styling designed around your natural curl pattern.",
+      "image": "/assets/images/style-curls.webp"
+    },
+    {
+      "name": "Cuts",
+      "description": "Curl cuts, fades and clean finishing for a polished everyday look.",
+      "image": "/assets/images/style-afro.webp"
+    }
+  ],
+  "pricing": {
+    "women": [
+      {
+        "name": "Cornrows",
+        "from": "€55",
+        "items": [
+          {
+            "label": "4 braids",
+            "price": "€55"
+          },
+          {
+            "label": "6 braids",
+            "price": "€75"
+          },
+          {
+            "label": "8 braids",
+            "price": "€90"
+          },
+          {
+            "label": "10 braids",
+            "price": "€100"
+          }
+        ]
+      },
+      {
+        "name": "Cornrows with design",
+        "from": "€70",
+        "items": [
+          {
+            "label": "4 braids",
+            "price": "€70"
+          },
+          {
+            "label": "6 braids",
+            "price": "€80"
+          },
+          {
+            "label": "8 braids",
+            "price": "€95"
+          },
+          {
+            "label": "10 braids",
+            "price": "€115"
+          }
+        ]
+      },
+      {
+        "name": "Knotless braids / twist",
+        "from": "€100",
+        "items": [
+          {
+            "label": "Large",
+            "price": "€100"
+          },
+          {
+            "label": "Medium",
+            "price": "€155"
+          },
+          {
+            "label": "Small",
+            "price": "€175"
+          }
+        ]
+      },
+      {
+        "name": "Fulani braids",
+        "from": "€125",
+        "items": [
+          {
+            "label": "Large",
+            "price": "€125"
+          },
+          {
+            "label": "Medium",
+            "price": "€145"
+          },
+          {
+            "label": "Small",
+            "price": "€165"
+          }
+        ]
+      },
+      {
+        "name": "Knotless goddess",
+        "from": "€125",
+        "items": [
+          {
+            "label": "Large",
+            "price": "€125"
+          },
+          {
+            "label": "Medium",
+            "price": "€175"
+          },
+          {
+            "label": "Small",
+            "price": "€200"
+          }
+        ]
+      },
+      {
+        "name": "Haircut",
+        "from": "€35",
+        "items": [
+          {
+            "label": "Curl cut",
+            "price": "€35"
+          },
+          {
+            "label": "Cut + styling",
+            "price": "€60"
+          }
+        ]
+      }
+    ],
+    "men": [
+      {
+        "name": "Cornrows",
+        "from": "€50",
+        "items": [
+          {
+            "label": "4 braids",
+            "price": "€50"
+          },
+          {
+            "label": "6 braids",
+            "price": "€65"
+          },
+          {
+            "label": "8 braids",
+            "price": "€75"
+          },
+          {
+            "label": "10 braids",
+            "price": "€90"
+          }
+        ]
+      },
+      {
+        "name": "Cornrows with design",
+        "from": "€70",
+        "items": [
+          {
+            "label": "4 braids",
+            "price": "€70"
+          },
+          {
+            "label": "6 braids",
+            "price": "€80"
+          },
+          {
+            "label": "8 braids",
+            "price": "€95"
+          },
+          {
+            "label": "10 braids",
+            "price": "€115"
+          }
+        ]
+      },
+      {
+        "name": "Twist",
+        "from": "€65",
+        "items": [
+          {
+            "label": "Large",
+            "price": "€65"
+          },
+          {
+            "label": "Medium",
+            "price": "€80"
+          },
+          {
+            "label": "Small",
+            "price": "€95"
+          },
+          {
+            "label": "Extra small",
+            "price": "€125"
+          }
+        ]
+      },
+      {
+        "name": "Retwist",
+        "from": "€60",
+        "items": [
+          {
+            "label": "30–45 locs",
+            "price": "€60"
+          },
+          {
+            "label": "45–65 locs",
+            "price": "€75"
+          },
+          {
+            "label": "65–90 locs",
+            "price": "€90"
+          },
+          {
+            "label": "90–120 locs",
+            "price": "€110"
+          }
+        ]
+      },
+      {
+        "name": "Barrel twist",
+        "from": "€85",
+        "items": [
+          {
+            "label": "4 barrels",
+            "price": "€85"
+          },
+          {
+            "label": "6 barrels",
+            "price": "€100"
+          }
+        ]
+      },
+      {
+        "name": "Haircut",
+        "from": "€25",
+        "items": [
+          {
+            "label": "Curl cut",
+            "price": "€35"
+          },
+          {
+            "label": "Fade + line up",
+            "price": "€25"
+          }
+        ]
+      }
+    ]
+  },
+  "priceNotes": {
+    "women": "Synthetic hair is not included unless stated otherwise.",
+    "men": "Prices include blow-drying. Extra synthetic hair: +€15."
+  },
+  "aftercare": [
+    {
+      "title": "Moisture & scalp",
+      "text": "Use a small amount of scalp oil roughly every five days. Keep the scalp comfortable without overloading it."
+    },
+    {
+      "title": "Protect at night",
+      "text": "Sleep with a satin bonnet or scarf to reduce friction and keep your style neat for longer."
+    },
+    {
+      "title": "Wash & take down",
+      "text": "Use a gentle shampoo and conditioning mask. Moisturise before taking braids down and work from the ends upward."
+    }
+  ],
+  "booking": {
+    "headline": "Request your appointment",
+    "text": "Choose your treatment, date and a 15-minute time slot. WhatsApp opens with your request ready to send."
+  }
+}

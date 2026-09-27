@@ -1,0 +1,85 @@
+media:
+  input: assets/images
+  output: /assets/images
+
+content:
+  - name: site
+    label: Planit Hair Website
+    type: file
+    path: data/site.json
+    format: json
+    fields:
+      - name: brand
+        label: Brand
+        type: object
+        fields:
+          - { name: name, label: Business name, type: string }
+          - { name: location, label: Location, type: string }
+          - { name: tagline, label: Hero headline, type: string }
+          - { name: intro, label: Hero intro, type: text }
+      - name: contact
+        label: Contact & socials
+        type: object
+        fields:
+          - { name: whatsapp, label: WhatsApp number, type: string }
+          - { name: instagram, label: Instagram URL, type: string }
+          - { name: tiktok, label: TikTok URL, type: string }
+      - name: services
+        label: Services
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: description, label: Description, type: text }
+          - { name: image, label: Image, type: image }
+      - name: pricing
+        label: Pricing
+        type: object
+        fields:
+          - name: women
+            label: Women
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Treatment, type: string }
+              - { name: from, label: From price, type: string }
+              - name: items
+                label: Options
+                type: object
+                list: true
+                fields:
+                  - { name: label, label: Option, type: string }
+                  - { name: price, label: Price, type: string }
+          - name: men
+            label: Men
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Treatment, type: string }
+              - { name: from, label: From price, type: string }
+              - name: items
+                label: Options
+                type: object
+                list: true
+                fields:
+                  - { name: label, label: Option, type: string }
+                  - { name: price, label: Price, type: string }
+      - name: priceNotes
+        label: Price notes
+        type: object
+        fields:
+          - { name: women, label: Women note, type: text }
+          - { name: men, label: Men note, type: text }
+      - name: aftercare
+        label: Aftercare
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: text, label: Text, type: text }
+      - name: booking
+        label: Booking
+        type: object
+        fields:
+          - { name: headline, label: Headline, type: string }
+          - { name: text, label: Description, type: text }
