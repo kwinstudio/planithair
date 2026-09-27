@@ -59,13 +59,19 @@ async function hydrateChunkedVideo(video){
 }
 
 const chunkedVideos=[...document.querySelectorAll('.social-card video')];
+const stopTikTokVideo=video=>{
+  if(!video.paused) video.pause();
+  try{if(video.readyState>0) video.currentTime=0}catch{}
+};
 chunkedVideos.forEach(video=>{
   video.muted=true;
   video.defaultMuted=true;
+  video.loop=true;
   video.setAttribute('muted','');
   video.setAttribute('playsinline','');
+  video.setAttribute('loop','');
   video.addEventListener('play',()=>{
-    chunkedVideos.forEach(other=>{if(other!==video&&!other.paused)other.pause()});
+    chunkedVideos.forEach(other=>{if(other!==video)stopTikTokVideo(other)});
   });
 });
 
@@ -86,7 +92,7 @@ if('IntersectionObserver' in window){
 
   const syncTikTokAutoplay=()=>{
     if(document.hidden){
-      chunkedVideos.forEach(video=>video.pause());
+      chunkedVideos.forEach(stopTikTokVideo);
       activeVideo=null;
       return;
     }
@@ -97,13 +103,13 @@ if('IntersectionObserver' in window){
     });
 
     if(!best||bestRatio<.62){
-      chunkedVideos.forEach(video=>{if(!video.paused)video.pause()});
+      chunkedVideos.forEach(stopTikTokVideo);
       activeVideo=null;
       autoplayToken++;
       return;
     }
 
-    chunkedVideos.forEach(video=>{if(video!==best&&!video.paused)video.pause()});
+    chunkedVideos.forEach(video=>{if(video!==best)stopTikTokVideo(video)});
     if(activeVideo===best&&!best.paused) return;
 
     activeVideo=best;
