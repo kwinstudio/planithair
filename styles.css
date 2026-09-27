@@ -902,3 +902,146 @@
     gap:16px;
   }
 }
+
+
+/* ===== Mobile QA + full-frame TikTok carousel ===== */
+html,body{max-width:100%;overflow-x:clip}
+body,main,.site-header,.shell{min-width:0}
+img,video{max-width:100%}
+.hero-slide img{image-rendering:auto;transform:none!important;filter:none!important}
+.hero-slide{filter:none!important}
+
+.tiktok-carousel{
+  width:min(430px,100%);
+  margin:0 auto 52px;
+}
+.tiktok-track{
+  display:flex;
+  width:100%;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  touch-action:pan-x pan-y;
+  border-radius:26px;
+}
+.tiktok-track::-webkit-scrollbar{display:none}
+.tiktok-slide{
+  flex:0 0 100%;
+  min-width:100%;
+  scroll-snap-align:center;
+  scroll-snap-stop:always;
+  margin:0;
+  border-radius:26px;
+}
+.tiktok-slide .video-wrap{
+  width:100%;
+  aspect-ratio:9/16!important;
+  max-height:none;
+  background:#000;
+  overflow:hidden;
+}
+.tiktok-slide video{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#000;
+}
+.tiktok-carousel-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:14px 4px 0;
+}
+.tiktok-dots{display:flex;align-items:center;gap:7px}
+.tiktok-dots button{
+  appearance:none;border:0;padding:0;width:7px;height:7px;border-radius:99px;
+  background:rgba(255,255,255,.3);cursor:pointer;transition:width .2s var(--ease),background .2s var(--ease)
+}
+.tiktok-dots button.is-active{width:26px;background:#fff}
+.tiktok-arrows{display:flex;gap:8px}
+.tiktok-arrows button{
+  width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.22);
+  background:transparent;color:#fff;font-size:18px;display:grid;place-items:center;cursor:pointer
+}
+.tiktok-arrows button:hover{background:#fff;color:var(--ink-deep)}
+.home-social .instagram-promo{margin-top:12px}
+
+@media(max-width:900px){
+  .site-header{width:100%}
+  .shell{width:min(100% - 32px,1180px)}
+  .section-pad{padding-block:82px}
+  .page-hero-media,.page-hero-compact .page-hero-media{min-height:0;aspect-ratio:4/5}
+  .page-hero-media img,.page-hero-compact .page-hero-media img{min-height:0;height:100%;object-fit:cover}
+  .price-layout,.aftercare-layout,.booking-layout,.faq-layout{min-width:0}
+  .price-intro{position:static}
+  .home-social-grid{display:block}
+}
+@media(max-width:620px){
+  :root{--mobile-gutter:16px}
+  html{-webkit-text-size-adjust:100%}
+  body{padding:0}
+  .shell{width:calc(100% - 32px);max-width:none}
+  .section-pad{padding-block:66px}
+  .site-header{top:0}
+  .header-inner{min-height:66px}
+  .brand img{max-width:112px;height:auto}
+  .mobile-menu{max-height:calc(100dvh - 66px);overflow-y:auto;overscroll-behavior:contain}
+  .mobile-menu-inner{padding-inline:0;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+  .hero-story{height:500svh!important}
+  .hero-story .hero{top:66px!important;height:calc(100svh - 66px)!important}
+  .hero-story-content{width:100%!important;max-width:none!important}
+  .hero-story-panel{
+    left:16px!important;right:16px!important;width:auto!important;
+    bottom:max(92px,calc(env(safe-area-inset-bottom) + 78px))!important
+  }
+  .hero-story-panel h1,.hero-story-panel h2{font-size:clamp(36px,10.8vw,48px)!important;line-height:.94;max-width:11ch}
+  .hero-story-panel .eyebrow{margin-bottom:10px;font-size:9px;letter-spacing:.13em;gap:7px}
+  .hero-story-panel .eyebrow span+span:before{width:16px;margin-right:7px}
+  .hero-story-panel .hero-intro{margin-top:12px!important;font-size:13px!important;line-height:1.48!important;max-width:31ch!important}
+  .hero-panel-cta{margin-top:15px!important;min-height:46px;padding-inline:18px}
+  .hero-story-progress{left:16px!important;right:16px!important;top:14px!important;justify-content:flex-end;overflow:hidden}
+  .hero-story-progress button{flex:0 1 28px;min-width:14px}
+  .hero-story-progress button.is-active{flex-basis:42px}
+  .hero-frame-count{right:16px!important;top:36px!important}
+  .hero-next-control{left:16px!important;bottom:max(14px,env(safe-area-inset-bottom))!important}
+  .statement-grid,.page-hero-grid,.route-grid,.route-grid-two,.price-layout,.aftercare-layout,.booking-layout,.faq-layout{grid-template-columns:minmax(0,1fr)!important}
+  .statement-grid{gap:28px}
+  .statement h2,.section-heading h2,.price-intro h2,.aftercare-intro h2,.faq-layout h2{overflow-wrap:anywhere}
+  .route-card{min-height:145px;padding:20px}
+  .page-hero{padding:36px 0 48px}
+  .page-hero-copy h1,.booking-top h1{font-size:clamp(42px,12vw,58px)!important;max-width:10ch}
+  .page-hero-media,.page-hero-compact .page-hero-media{border-radius:20px;aspect-ratio:4/5}
+  .gallery-grid{width:calc(100% - 24px);gap:8px}
+  .gallery-card{min-width:0}
+  .gallery-card-meta{gap:7px}
+  .gallery-card-meta strong{font-size:16px!important;overflow-wrap:anywhere}
+  .gallery-preview .gallery-card:nth-child(n+5){display:block}
+  .price-item summary{grid-template-columns:minmax(0,1fr) auto auto;gap:9px;min-height:68px}
+  .price-item h3{font-size:16px;min-width:0;overflow-wrap:anywhere}
+  .price-from{white-space:nowrap;font-size:12px}
+  .price-options{padding-right:0}
+  .price-row{gap:14px}
+  .field input,.field select,.field textarea{font-size:16px!important;width:100%;max-width:100%}
+  .booking-form{width:100%;min-width:0;padding:22px 16px!important}
+  .booking-form .button{white-space:normal;line-height:1.25;padding-block:13px}
+  .footer-grid{gap:28px}
+  .site-footer{padding-bottom:110px}
+  .mobile-book{left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));min-height:52px}
+  .tiktok-carousel{width:100%;margin-bottom:44px}
+  .tiktok-track{border-radius:20px}
+  .tiktok-slide{border-radius:20px;border:0;background:transparent}
+  .tiktok-slide .video-wrap{border-radius:20px;max-height:calc(100svh - 132px)}
+  .tiktok-slide video{border-radius:20px}
+  .tiktok-slide .social-home-copy{padding:16px 4px 8px}
+  .tiktok-slide .social-home-copy>div{margin-bottom:8px}
+  .tiktok-slide .social-home-copy p{font-size:13px;line-height:1.5;margin-bottom:14px}
+  .tiktok-carousel-controls{padding-top:12px}
+  .tiktok-arrows button{width:40px;height:40px}
+  .instagram-promo{margin-top:30px!important}
+  .instagram-collage{min-height:260px!important}
+  .instagram-promo-copy{padding:26px 20px 30px!important}
+  .instagram-promo-copy h3{font-size:40px!important}
+}
