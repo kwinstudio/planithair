@@ -17,46 +17,122 @@ const time=$('#time');for(let h=8;h<=21;h++){for(let m=0;m<60;m+=15){const val=`
 const date=$('#date');date.min=new Date().toISOString().split('T')[0];
 $('#bookingForm').addEventListener('submit',e=>{e.preventDefault();const f=e.currentTarget,status=$('#formStatus');if(!f.reportValidity()){status.textContent='Please complete the required fields.';return}const data=new FormData(f);const phone=(siteData?.contact?.whatsapp||'31634893324').replace(/\D/g,'');const msg=`Hi Planit Hair,\n\nI would like to request an appointment.\n\nTreatment: ${data.get('treatment')}\nDate: ${data.get('date')}\nTime: ${data.get('time')}\nName: ${data.get('name')}\n${data.get('notes')?`\nExtra information: ${data.get('notes')}`:''}`;status.textContent='Opening WhatsApp…';window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank','noopener')});
 function observeReveals(){const els=$$('.reveal:not(.is-visible)');if(matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(x=>x.classList.add('is-visible'));return}const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.12});els.forEach(x=>io.observe(x))}
-$$('.social-card video').forEach(v=>v.addEventListener('play',()=>$$('.social-card video').forEach(o=>{if(o!==v&&!o.paused)o.pause()})));
 $('#year').textContent=new Date().getFullYear();
 loadSite();observeReveals();
 
 async function hydrateChunkedVideo(video){
-  if(video.dataset.chunkState) return;
+  if(video.dataset.chunkState==='ready') return video;
+  if(video._hydratePromise) return video._hydratePromise;
   const source=video.querySelector('source[data-chunk-prefix]');
-  if(!source) return;
+  if(!source) return video;
   video.dataset.chunkState='loading';
-  try{
-    const prefix=source.dataset.chunkPrefix;
-    const count=Number(source.dataset.chunkCount||0);
-    const buffers=[];
-    for(let i=0;i<count;i++){
-      const url=`${prefix}${String(i).padStart(2,'0')}.b64`;
-      const res=await fetch(url,{cache:'force-cache'});
-      if(!res.ok) throw new Error(`Video chunk failed: ${res.status}`);
-      const b64=(await res.text()).replace(/\s+/g,'');
-      const bin=atob(b64);
-      const bytes=new Uint8Array(bin.length);
-      for(let j=0;j<bin.length;j++) bytes[j]=bin.charCodeAt(j);
-      buffers.push(bytes);
+  video._hydratePromise=(async()=>{
+    try{
+      const prefix=source.dataset.chunkPrefix;
+      const count=Number(source.dataset.chunkCount||0);
+      const buffers=[];
+      for(let i=0;i<count;i++){
+        const url=`${prefix}${String(i).padStart(2,'0')}.b64`;
+        const res=await fetch(url,{cache:'force-cache'});
+        if(!res.ok) throw new Error(`Video chunk failed: ${res.status}`);
+        const b64=(await res.text()).replace(/\s+/g,'');
+        const bin=atob(b64);
+        const bytes=new Uint8Array(bin.length);
+        for(let j=0;j<bin.length;j++) bytes[j]=bin.charCodeAt(j);
+        buffers.push(bytes);
+      }
+      const blob=new Blob(buffers,{type:'video/mp4'});
+      video.src=URL.createObjectURL(blob);
+      video.dataset.chunkState='ready';
+      video.muted=true;
+      video.defaultMuted=true;
+      video.playsInline=true;
+      video.load();
+      return video;
+    }catch(err){
+      console.error(err);
+      video.dataset.chunkState='error';
+      throw err;
     }
-    const blob=new Blob(buffers,{type:'video/mp4'});
-    video.src=URL.createObjectURL(blob);
-    video.dataset.chunkState='ready';
-    video.load();
-  }catch(err){
-    console.error(err);
-    video.dataset.chunkState='error';
-  }
+  })();
+  return video._hydratePromise;
 }
-const chunkedVideos=[...document.querySelectorAll('video')].filter(v=>v.querySelector('source[data-chunk-prefix]'));
+
+const chunkedVideos=[...document.querySelectorAll('.social-card video')];
+chunkedVideos.forEach(video=>{
+  video.muted=true;
+  video.defaultMuted=true;
+  video.setAttribute('muted','');
+  video.setAttribute('playsinline','');
+  video.addEventListener('play',()=>{
+    chunkedVideos.forEach(other=>{if(other!==video&&!other.paused)other.pause()});
+  });
+});
+
 if('IntersectionObserver' in window){
   const videoLoader=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
-      if(entry.isIntersecting){hydrateChunkedVideo(entry.target);videoLoader.unobserve(entry.target)}
+      if(entry.isIntersecting){
+        hydrateChunkedVideo(entry.target).catch(()=>{});
+        videoLoader.unobserve(entry.target);
+      }
     });
-  },{rootMargin:'600px 0px'});
-  chunkedVideos.forEach(v=>videoLoader.observe(v));
+  },{rootMargin:'420px 0px'});
+  chunkedVideos.forEach(video=>videoLoader.observe(video));
+
+  const ratios=new Map(chunkedVideos.map(video=>[video,0]));
+  let activeVideo=null;
+  let autoplayToken=0;
+
+  const syncTikTokAutoplay=()=>{
+    if(document.hidden){
+      chunkedVideos.forEach(video=>video.pause());
+      activeVideo=null;
+      return;
+    }
+    let best=null;
+    let bestRatio=0;
+    ratios.forEach((ratio,video)=>{
+      if(ratio>bestRatio){best=video;bestRatio=ratio}
+    });
+
+    if(!best||bestRatio<.62){
+      chunkedVideos.forEach(video=>{if(!video.paused)video.pause()});
+      activeVideo=null;
+      autoplayToken++;
+      return;
+    }
+
+    chunkedVideos.forEach(video=>{if(video!==best&&!video.paused)video.pause()});
+    if(activeVideo===best&&!best.paused) return;
+
+    activeVideo=best;
+    const token=++autoplayToken;
+    best.muted=true;
+    best.defaultMuted=true;
+    hydrateChunkedVideo(best).then(()=>{
+      if(token!==autoplayToken||activeVideo!==best||(ratios.get(best)||0)<.62||document.hidden) return;
+      best.muted=true;
+      const playAttempt=best.play();
+      if(playAttempt&&typeof playAttempt.catch==='function') playAttempt.catch(()=>{});
+    }).catch(()=>{});
+  };
+
+  const autoplayObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>ratios.set(entry.target,entry.isIntersecting?entry.intersectionRatio:0));
+    syncTikTokAutoplay();
+  },{threshold:[0,.2,.4,.62,.75,.9,1]});
+  chunkedVideos.forEach(video=>autoplayObserver.observe(video));
+  document.addEventListener('visibilitychange',syncTikTokAutoplay);
 }else{
-  chunkedVideos.forEach(hydrateChunkedVideo);
+  chunkedVideos.forEach(video=>hydrateChunkedVideo(video).catch(()=>{}));
+}
+
+const hero=$('.hero');
+const mobileBook=$('.mobile-book');
+if(hero&&mobileBook&&'IntersectionObserver' in window){
+  const heroBookObserver=new IntersectionObserver(([entry])=>{
+    mobileBook.classList.toggle('is-hidden',entry.isIntersecting&&entry.intersectionRatio>.2);
+  },{threshold:[0,.2,.5,1]});
+  heroBookObserver.observe(hero);
 }
