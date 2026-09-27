@@ -136,47 +136,170 @@ if('IntersectionObserver' in window){
 
 const heroStory=$('.hero-story');
 const mobileBook=$('.mobile-book');
-const heroSlides=$('[data-hero-slide]');
-const heroPanels=$('[data-hero-panel]');
-const heroProgress=$('[data-hero-progress]');
-let heroFrame=-1;
-let heroRaf=0;
+const heroSlides=$$('[data-hero-slide]');
+const heroPanels=$$('[data-hero-panel]');
+const heroProgress=$$('[data-hero-progress]');
+const heroCounter=$('.hero-frame-count strong');
+const heroNext=$('.hero-next-control');
+const heroNextLabel=$('.hero-next-label');
+const prefersReduced=matchMedia('(prefers-reduced-motion: reduce)');
+let heroFrame=0;
+let gestureLock=false;
+let wheelAccumulator=0;
+let touchStartY=null;
+let touchLastY=null;
+
+const heroTotal=heroSlides.length;
+const heroIsVisible=()=>{
+  if(!heroStory) return false;
+  const rect=heroStory.getBoundingClientRect();
+  const header=innerWidth<=900?66:78;
+  return rect.top<=header+2 && rect.bottom>header+Math.min(240,innerHeight*.35);
+};
 
 function setHeroFrame(next){
-  if(next===heroFrame) return;
-  heroFrame=next;
-  heroSlides.forEach((slide,index)=>slide.classList.toggle('is-active',index===next));
+  const clamped=Math.max(0,Math.min(heroTotal-1,next));
+  if(clamped===heroFrame&&heroSlides[clamped]?.classList.contains('is-active')) return;
+  heroFrame=clamped;
+  heroStory?.classList.add('is-changing');
+  heroSlides.forEach((slide,index)=>slide.classList.toggle('is-active',index===heroFrame));
   heroPanels.forEach((panel,index)=>{
-    const active=index===next;
+    const active=index===heroFrame;
     panel.classList.toggle('is-active',active);
     panel.setAttribute('aria-hidden',String(!active));
   });
-  heroProgress.forEach((item,index)=>item.classList.toggle('is-active',index===next));
+  heroProgress.forEach((item,index)=>{
+    const active=index===heroFrame;
+    item.classList.toggle('is-active',active);
+    if(active)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');
+  });
+  if(heroCounter) heroCounter.textContent=String(heroFrame+1).padStart(2,'0');
+  if(heroNextLabel) heroNextLabel.textContent=heroFrame===heroTotal-1?'Enter site':'Swipe / scroll';
+  clearTimeout(setHeroFrame._timer);
+  setHeroFrame._timer=setTimeout(()=>heroStory?.classList.remove('is-changing'),720);
 }
 
-function updateHeroStory(){
-  heroRaf=0;
-  if(!heroStory||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const rect=heroStory.getBoundingClientRect();
-  const travel=Math.max(1,heroStory.offsetHeight-window.innerHeight);
-  const progress=Math.min(1,Math.max(0,-rect.top/travel));
-  setHeroFrame(Math.min(2,Math.floor(progress*3)));
+function leaveHero(){
+  const nextSection=heroStory?.nextElementSibling;
+  if(nextSection) nextSection.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function requestHeroUpdate(){
-  if(!heroRaf) heroRaf=requestAnimationFrame(updateHeroStory);
+function stepHero(direction){
+  if(gestureLock||prefersReduced.matches) return;
+  if(direction>0){
+    if(heroFrame<heroTotal-1) setHeroFrame(heroFrame+1);
+    else leaveHero();
+  }else if(heroFrame>0){
+    setHeroFrame(heroFrame-1);
+  }
+  gestureLock=true;
+  setTimeout(()=>{gestureLock=false;wheelAccumulator=0},560);
 }
+
+heroProgress.forEach((button,index)=>button.addEventListener('click',()=>setHeroFrame(index)));
+heroNext?.addEventListener('click',()=>stepHero(1));
+
+addEventListener('wheel',event=>{
+  if(!heroIsVisible()||prefersReduced.matches) return;
+  const down=event.deltaY>0;
+  const up=event.deltaY<0;
+  if((down&&heroFrame===heroTotal-1)||(up&&heroFrame===0)) {
+    if(down){
+      event.preventDefault();
+      stepHero(1);
+    }
+    return;
+  }
+  event.preventDefault();
+  if(gestureLock) return;
+  wheelAccumulator+=event.deltaY;
+  if(Math.abs(wheelAccumulator)>=36) stepHero(wheelAccumulator>0?1:-1);
+},{passive:false});
 
 if(heroStory){
-  setHeroFrame(0);
-  updateHeroStory();
-  addEventListener('scroll',requestHeroUpdate,{passive:true});
-  addEventListener('resize',requestHeroUpdate,{passive:true});
+  heroStory.addEventListener('touchstart',event=>{
+    if(prefersReduced.matches) return;
+    touchStartY=event.touches[0]?.clientY??null;
+    touchLastY=touchStartY;
+  },{passive:true});
+  heroStory.addEventListener('touchmove',event=>{
+    if(!heroIsVisible()||touchStartY===null||prefersReduced.matches) return;
+    touchLastY=event.touches[0]?.clientY??touchLastY;
+    const distance=(touchLastY??touchStartY)-touchStartY;
+    const wantsNext=distance<-8;
+    const wantsPrev=distance>8;
+    if((wantsNext&&heroFrame<=heroTotal-1)||(wantsPrev&&heroFrame>0)) event.preventDefault();
+  },{passive:false});
+  heroStory.addEventListener('touchend',()=>{
+    if(touchStartY===null||touchLastY===null||prefersReduced.matches) return;
+    const distance=touchLastY-touchStartY;
+    touchStartY=null;touchLastY=null;
+    if(Math.abs(distance)<44) return;
+    if(distance<0) stepHero(1);
+    else stepHero(-1);
+  },{passive:true});
 }
+
+addEventListener('keydown',event=>{
+  if(!heroIsVisible()||prefersReduced.matches) return;
+  if(['ArrowDown','PageDown',' '].includes(event.key)){
+    event.preventDefault();stepHero(1);
+  }else if(['ArrowUp','PageUp'].includes(event.key)&&heroFrame>0){
+    event.preventDefault();stepHero(-1);
+  }
+});
+
+setHeroFrame(0);
 
 if(heroStory&&mobileBook&&'IntersectionObserver' in window){
   const heroBookObserver=new IntersectionObserver(([entry])=>{
     mobileBook.classList.toggle('is-hidden',entry.isIntersecting);
   },{threshold:0});
   heroBookObserver.observe(heroStory);
+}
+
+/* Recent work: swipe/drag rail + live progress */
+const workRail=$('#workRail');
+const workProgress=$('#workProgressBar');
+if(workRail){
+  const updateWorkProgress=()=>{
+    if(!workProgress) return;
+    const max=Math.max(1,workRail.scrollWidth-workRail.clientWidth);
+    const ratio=Math.max(0,Math.min(1,workRail.scrollLeft/max));
+    workProgress.style.width=`${16+ratio*84}%`;
+  };
+  workRail.addEventListener('scroll',updateWorkProgress,{passive:true});
+  updateWorkProgress();
+
+  let dragging=false,startX=0,startScroll=0,moved=false;
+  workRail.addEventListener('pointerdown',event=>{
+    if(event.pointerType==='touch') return;
+    dragging=true;moved=false;startX=event.clientX;startScroll=workRail.scrollLeft;
+    workRail.classList.add('is-dragging');
+    workRail.setPointerCapture?.(event.pointerId);
+  });
+  workRail.addEventListener('pointermove',event=>{
+    if(!dragging) return;
+    const dx=event.clientX-startX;
+    if(Math.abs(dx)>4)moved=true;
+    workRail.scrollLeft=startScroll-dx;
+  });
+  const endDrag=event=>{
+    if(!dragging)return;
+    dragging=false;workRail.classList.remove('is-dragging');
+    try{workRail.releasePointerCapture?.(event.pointerId)}catch{}
+  };
+  workRail.addEventListener('pointerup',endDrag);
+  workRail.addEventListener('pointercancel',endDrag);
+  workRail.addEventListener('pointerleave',event=>{if(dragging)endDrag(event)});
+
+  $$('.work-card',workRail).forEach(card=>{
+    card.addEventListener('click',()=>{
+      if(moved)return;
+      const treatment=card.dataset.look;
+      const select=$('#treatment');
+      if(select&&[...select.options].some(o=>o.value===treatment)) select.value=treatment;
+      $('#book')?.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
 }
