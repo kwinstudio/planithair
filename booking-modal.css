@@ -1,0 +1,25 @@
+html.booking-open{overflow:hidden}
+.booking-dialog{width:min(520px,calc(100% - 28px));max-width:none;max-height:calc(100dvh - 28px);margin:auto;padding:0;border:0;border-radius:26px;background:#f7f2e8;color:#0f281d;box-shadow:0 24px 100px rgba(0,0,0,.28);overflow:auto;overscroll-behavior:contain}
+.booking-dialog::backdrop{background:rgba(4,16,10,.66);backdrop-filter:blur(6px)}
+.booking-dialog [hidden]{display:none!important}
+.qb-shell{padding:28px 32px 26px}
+.qb-top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px}
+.qb-brand{font:400 22px/1 Georgia,serif;letter-spacing:-.04em}.qb-close{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(24,58,42,.18);border-radius:50%;background:transparent;cursor:pointer;font-size:25px;line-height:1;color:#183a2a}
+.qb-progress{height:3px;border-radius:4px;background:#dfe8dd;overflow:hidden;margin-bottom:16px}.qb-progress span{display:block;width:33.33%;height:100%;background:#496b57;transition:width .2s ease}
+.qb-count{margin:0 0 18px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#68766c}
+.qb-title{font-family:Georgia,serif;font-size:clamp(33px,6vw,43px);font-weight:400;letter-spacing:-.045em;line-height:1.07;margin:0 0 14px;max-width:12ch}.qb-title:focus{outline:none}
+.qb-intro{margin:0 0 24px;color:#5a6c60;font-size:14px;line-height:1.7}
+.qb-selection{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#e5ebde;border-radius:12px;padding:12px 14px;margin-bottom:24px;font-size:12px;line-height:1.6}.qb-selection strong{display:block;font-size:13px}.qb-selection small{color:#52694f;font-size:11px}.qb-change{border:0;background:transparent;min-height:38px;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:#183a2a}
+.qb-field{display:grid;gap:9px;margin:0 0 22px;min-width:0}.qb-field label{font-size:12px;font-weight:700}.qb-field label span{font-size:11px;color:#68766c;font-weight:400}
+.qb-field input,.qb-field select,.qb-field textarea{display:block;width:100%;min-width:0;max-width:100%;min-height:54px;padding:12px 14px;border:1px solid rgba(24,58,42,.2);border-radius:12px;background:#fffdf8;color:#0f281d;font:inherit;font-size:16px;line-height:1.5}
+.qb-field input[type=date]{appearance:none;-webkit-appearance:none;min-height:54px}.qb-field textarea{resize:vertical;min-height:90px;font-size:14px}
+.qb-price{margin:-8px 0 22px;color:#52694f;font-size:12px;line-height:1.65;min-height:20px}
+.qb-when-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qb-optional-note{margin-bottom:18px}.qb-optional-note summary{display:inline-flex;align-items:center;min-height:42px;font-size:12px;color:#52694f;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.qb-optional-note .qb-field{margin-top:10px;margin-bottom:0}
+.qb-review{margin-bottom:22px;padding:14px 0;border-block:1px solid rgba(24,58,42,.14);font-size:12px;color:#52694f;line-height:1.8}.qb-review strong{display:block;font-weight:600;color:#183a2a}
+.qb-controls{display:flex;align-items:center;gap:14px;margin-top:12px}.qb-next{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:54px;flex:1;border:0;border-radius:999px;background:#183a2a;color:#fffdf8;padding:12px 23px;font-size:13px;font-weight:600;cursor:pointer}.qb-next:hover{background:#234d38}.qb-back{min-height:48px;padding:0 9px;border:0;background:transparent;color:#52694f;font-size:12px;cursor:pointer}.qb-footer{font-size:11px;line-height:1.65;color:#68766c;margin:18px 0 0;text-align:center}
+.qb-loading{font-size:14px;color:#52694f;padding:20px 0 36px}.booking-dialog :focus-visible{outline:2px solid #7f9a7b;outline-offset:4px}
+.booking-open .mobile-book{visibility:hidden}
+.quick-book-landing{text-align:center;background:var(--cream)}.quick-book-landing-inner{display:flex;flex-direction:column;align-items:center;gap:24px}.quick-book-landing h1{font:400 clamp(48px,6vw,80px)/1 Georgia,serif;letter-spacing:-.05em;margin:0}.quick-book-landing h1 em{font-weight:400;color:#496b57}.quick-book-landing .section-kicker{margin:0}.quick-book-landing-inner>p:not(.section-kicker){max-width:44ch;color:#68766c;font-size:16px;line-height:1.7;margin:0}.quick-book-landing .button{min-height:54px;gap:30px}
+@media(max-width:620px){.booking-dialog{width:calc(100% - 16px);margin:auto auto 8px;max-height:calc(100dvh - 16px);border-radius:24px}.qb-shell{padding:22px 22px max(24px,env(safe-area-inset-bottom))}.qb-top{margin-bottom:20px}.qb-title{font-size:37px}.qb-intro{font-size:13px}.qb-when-fields{grid-template-columns:1fr;gap:0}.qb-selection{margin-bottom:20px}.qb-field{margin-bottom:18px}.qb-count{margin-bottom:16px}.qb-footer{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.qb-progress span{transition:none}}
