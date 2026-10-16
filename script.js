@@ -49,7 +49,7 @@ function renderHomeTreatments(d) {
  const grid=$('#homeTreatments');if(!grid)return;
  const choices=[
   {name:'Cornrows',image:'/assets/gallery/cornrows-side.webp',text:'Clean sections, straight lines or a detailed pattern.'},
-  {name:'Fulani braids',image:'/assets/images/hero.webp',text:'Face-framing braids with your choice of finish.'},
+  {name:'Fulani braids',image:'/assets/gallery/fulani-warm.webp',text:'Face-framing braids with your choice of finish.'},
   {name:'Twist',image:'/assets/images/style-twists.webp',text:'A protective twist style with a considered finish.'},
   {name:'Haircut',image:'/assets/gallery/afro-shape.webp',text:'Curl cuts, fades and a shape that feels like you.'}
  ];
