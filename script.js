@@ -49,25 +49,6 @@ function observeReveals(){const els=$$('.reveal:not(.is-visible)');if(matchMedia
 const mb=$('.menu-button'),mm=$('#mobileMenu');mb?.addEventListener('click',()=>{const open=mb.getAttribute('aria-expanded')==='true';mb.setAttribute('aria-expanded',String(!open));if(mm)mm.hidden=open});$$('#mobileMenu a').forEach(a=>a.addEventListener('click',()=>{if(mm)mm.hidden=true;mb?.setAttribute('aria-expanded','false')}));
 const page=document.body.dataset.page;$$('[data-nav]').forEach(a=>a.classList.toggle('is-active',a.dataset.nav===page));
 $$('[data-price-tab]').forEach(b=>b.addEventListener('click',()=>{$$('[data-price-tab]').forEach(x=>{x.classList.toggle('is-active',x===b);x.setAttribute('aria-selected',String(x===b))});renderPrices(b.dataset.priceTab)}));
-const hero=$('.hero-story'),slides=$$('[data-hero-slide]'),panels=$$('[data-hero-panel]'),dots=$$('[data-hero-progress]'),count=$('.hero-frame-count strong'),next=$('.hero-next-control'),nextLabel=$('.hero-next-label'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
-let heroNearest=0,heroRaf=0,snapTimer=0,snapLock=false;
-const clamp=(v,min=0,max=1)=>Math.min(max,Math.max(min,v));
-function heroMetrics(){if(!hero)return null;const header=innerWidth<=900?66:78,rect=hero.getBoundingClientRect(),start=scrollY+rect.top-header,viewport=Math.max(1,innerHeight-header),travel=Math.max(1,hero.offsetHeight-viewport),progress=clamp((scrollY-start)/travel);return{start,travel,progress}}
-function paintHero(){
-  heroRaf=0;if(!hero||!slides.length)return;
-  if(reduce.matches){slides.forEach((s,i)=>{s.style.opacity=i?'0':'1';s.style.transform='none'});panels.forEach((p,i)=>p.style.opacity=i?'0':'1');return}
-  const m=heroMetrics();if(!m)return;const scaled=m.progress*(slides.length-1),nearest=Math.round(scaled);heroNearest=nearest;
-  slides.forEach((slide,i)=>{const distance=Math.abs(i-scaled),opacity=clamp(1-distance),drift=(i-scaled)*1.15;slide.style.opacity=opacity.toFixed(3);slide.style.transform=`translate3d(0,${drift.toFixed(2)}%,0)`;slide.classList.toggle('is-active',i===nearest)});
-  panels.forEach((panel,i)=>{const opacity=clamp(1-Math.abs(i-scaled)*2.2),active=i===nearest;panel.style.opacity=opacity.toFixed(3);panel.style.pointerEvents=active?'auto':'none';panel.classList.toggle('is-active',active);panel.setAttribute('aria-hidden',String(!active))});
-  dots.forEach((dot,i)=>{const active=i===nearest;dot.classList.toggle('is-active',active);if(active)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});
-  if(count)count.textContent=String(nearest+1).padStart(2,'0');if(nextLabel)nextLabel.textContent=nearest===slides.length-1?'Enter site':'Swipe / scroll';
-}
-function requestHeroPaint(){if(!heroRaf)heroRaf=requestAnimationFrame(paintHero)}
-function scrollHeroTo(index,behavior='smooth'){const m=heroMetrics();if(!m)return;const i=Math.max(0,Math.min(slides.length-1,index));snapLock=true;scrollTo({top:m.start+(i/Math.max(1,slides.length-1))*m.travel,behavior});setTimeout(()=>{snapLock=false;requestHeroPaint()},520)}
-function scheduleSnap(){if(!hero||reduce.matches||snapLock)return;clearTimeout(snapTimer);snapTimer=setTimeout(()=>{const m=heroMetrics();if(!m)return;const inside=scrollY>=m.start-2&&scrollY<=m.start+m.travel+2;if(!inside)return;const scaled=m.progress*(slides.length-1),nearest=Math.round(scaled);if(Math.abs(scaled-nearest)>.035)scrollHeroTo(nearest)},170)}
-if(hero){paintHero();addEventListener('scroll',()=>{requestHeroPaint();scheduleSnap()},{passive:true});addEventListener('resize',requestHeroPaint,{passive:true})}
-dots.forEach((dot,i)=>dot.addEventListener('click',()=>scrollHeroTo(i)));
-next?.addEventListener('click',()=>{if(heroNearest<slides.length-1)scrollHeroTo(heroNearest+1);else hero?.nextElementSibling?.scrollIntoView({behavior:'smooth',block:'start'})});
 const tiktokTrack=$('#tiktokTrack'),tiktokSlides=tiktokTrack?$$('[data-tiktok-slide]',tiktokTrack):[],tiktokDots=$$('[data-tiktok-dot]'),tiktokPrev=$('[data-tiktok-prev]'),tiktokNext=$('[data-tiktok-next]');
 let tiktokIndex=0,tiktokScrollTimer=0;
 function setTikTokIndex(index,scroll=true){
@@ -85,5 +66,5 @@ if(tiktokTrack){
 }
 async function hydrate(v){if(v.dataset.ready)return v;const s=v.querySelector('source[data-chunk-prefix]');if(!s)return v;const arr=[];for(let i=0;i<Number(s.dataset.chunkCount||0);i++){const r=await fetch(s.dataset.chunkPrefix+String(i).padStart(2,'0')+'.b64');const bin=atob((await r.text()).replace(/\s+/g,'')),u=new Uint8Array(bin.length);for(let j=0;j<bin.length;j++)u[j]=bin.charCodeAt(j);arr.push(u)}v.src=URL.createObjectURL(new Blob(arr,{type:'video/mp4'}));v.dataset.ready='1';v.muted=true;v.loop=true;v.playsInline=true;v.load();return v}
 const vids=$$('.social-card video');if(vids.length&&'IntersectionObserver'in window){const ratios=new Map(vids.map(v=>[v,0]));const stop=v=>{v.pause();try{v.currentTime=0}catch{}};const sync=()=>{let best=null,r=0;ratios.forEach((x,v)=>{if(x>r){r=x;best=v}});if(!best||r<.62){vids.forEach(stop);return}vids.forEach(v=>{if(v!==best)stop(v)});hydrate(best).then(()=>{if((ratios.get(best)||0)>=.62){best.muted=true;best.play().catch(()=>{})}})};const io=new IntersectionObserver(es=>{es.forEach(e=>ratios.set(e.target,e.isIntersecting?e.intersectionRatio:0));sync()},{threshold:[0,.3,.62,.9]});vids.forEach(v=>io.observe(v))}
-const mobileBook=$('.mobile-book');if(mobileBook&&'IntersectionObserver'in window){const hidden=new Set(),io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?hidden.add(e.target):hidden.delete(e.target));mobileBook.classList.toggle('is-hidden',hidden.size>0)},{threshold:.04});$$('.hero-story,.booking-section').forEach(x=>io.observe(x))}
+const mobileBook=$('.mobile-book');if(mobileBook&&'IntersectionObserver'in window){const hidden=new Set(),io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?hidden.add(e.target):hidden.delete(e.target));mobileBook.classList.toggle('is-hidden',hidden.size>0)},{threshold:.04});$$('.fluid-hero,.booking-section').forEach(x=>io.observe(x))}
 if($('#year'))$('#year').textContent=new Date().getFullYear();loadSite();observeReveals();
