@@ -1256,6 +1256,7 @@ function planitFluidSimulation(canvas) {
                 engine = planitFluidSimulation(canvas);
                 hero.classList.add('fluid-ready');
             } catch (error) {
+                console.warn('Planit fluid rendering unavailable:', String(error));
                 failed = true;
                 hero.classList.remove('fluid-ready');
                 // The static brand-colour background remains usable without WebGL.
