@@ -83,6 +83,7 @@ function planitFluidSimulation(canvas) {
         if (!isWebGL2)
             gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
 
+        if (!gl) throw new Error('WebGL is not supported');
         let halfFloat;
         let supportLinearFiltering;
         if (isWebGL2) {
@@ -1241,6 +1242,73 @@ function planitFluidSimulation(canvas) {
     }
 }
 
+
+// Lightweight moving ink field for browsers without an available WebGL context.
+function planitInkFallback(canvas) {
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) throw new Error('Canvas is not supported');
+    const hero = canvas.parentElement;
+    let active = false, raf = 0, last = 0, time = 0, image;
+    let px = .5, py = .5, strength = 0;
+    function resize() {
+        const aspect = hero.clientWidth / Math.max(1, hero.clientHeight);
+        const width = innerWidth < 700 ? 140 : 230;
+        const height = Math.max(90, Math.round(width / aspect));
+        if (canvas.width === width && canvas.height === height && image) return;
+        canvas.width = width; canvas.height = height;
+        image = ctx.createImageData(width, height);
+    }
+    function draw(now = 0) {
+        raf = 0;
+        if (!active) return;
+        if (now - last < 1000 / 20) { raf = requestAnimationFrame(draw); return; }
+        const dt = last ? Math.min(.06, (now - last) / 1000) : .05;
+        last = now; time += dt; strength *= .96;
+        resize();
+        const w = canvas.width, h = canvas.height, data = image.data, aspect = w / h;
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                let u = x / w, v = y / h;
+                const dx = u - px, dy = v - py;
+                const push = Math.exp(-(dx * dx + dy * dy) * 13) * strength;
+                let a = (u - .5) * aspect + .24 * Math.sin(v * 5 + time * .23) + dy * push;
+                let b = v + .20 * Math.sin(u * 4 - time * .16) - dx * push;
+                for (let k = 0; k < 3; k++) {
+                    a += Math.sin(b * 3.2 + time * .11 + k) * .15;
+                    b += Math.cos(a * 3.6 - time * .09 + k) * .15;
+                }
+                const field = Math.sin(a * 5.4 + Math.cos(b * 4 + time * .2) * 1.6 - time * .35)
+                    + Math.cos(b * 5.1 + Math.sin(a * 4 - time * .13) * 2 + time * .15);
+                const ink = Math.exp(-field * field * 2.5);
+                const veil = .5 + .5 * Math.sin(field * 3 + a * 2 + time * .1);
+                const i = (y * w + x) * 4;
+                data[i] = 11 + ink * 68 + veil * 18;
+                data[i + 1] = 33 + ink * 79 + veil * 23;
+                data[i + 2] = 24 + ink * 45 + veil * 11;
+                data[i + 3] = 255;
+            }
+        }
+        ctx.putImageData(image, 0, 0);
+        raf = requestAnimationFrame(draw);
+    }
+    function move(event) {
+        const rect = hero.getBoundingClientRect();
+        px = (event.clientX - rect.left) / rect.width;
+        py = (event.clientY - rect.top) / rect.height;
+        strength = .8;
+    }
+    hero.addEventListener('pointermove', move, { passive: true });
+    return {
+        setActive(value) {
+            if (active === value) return;
+            active = value;
+            if (active) { last = 0; raf = requestAnimationFrame(draw); }
+            else { cancelAnimationFrame(raf); raf = 0; }
+        },
+        destroy() { active = false; cancelAnimationFrame(raf); hero.removeEventListener('pointermove', move); }
+    };
+}
+
 (() => {
     const hero = document.querySelector('.fluid-hero');
     if (!hero) return;
@@ -1253,7 +1321,8 @@ function planitFluidSimulation(canvas) {
         const active = inView && !paused && !reduced.matches && !document.hidden && !navigator.connection?.saveData;
         if (!engine && active && !failed) {
             try {
-                engine = planitFluidSimulation(canvas);
+                try { engine = planitFluidSimulation(canvas); }
+                catch { engine = planitInkFallback(canvas); }
                 hero.classList.add('fluid-ready');
             } catch (error) {
                 console.warn('Planit fluid rendering unavailable:', String(error));
@@ -1282,3 +1351,4 @@ function planitFluidSimulation(canvas) {
     }
     sync();
 })();
+
