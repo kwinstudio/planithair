@@ -286,11 +286,11 @@
   ],
   "booking": {
     "headline": "Request your appointment",
-    "text": "Choose your treatment, date and a 15-minute time slot. WhatsApp opens with your request ready to send.",
+    "text": "Select a treatment, preferred date and time. You’ll review and send your request in WhatsApp.",
     "firstTimeSlot": "08:00",
     "lastTimeSlot": "21:00",
     "slotMinutes": 15,
-    "availabilityNote": "Requested times are subject to confirmation via WhatsApp."
+    "availabilityNote": "This form does not reserve a time. Planit Hair confirms availability and the final price with you on WhatsApp."
   },
   "heroSlides": [
     {

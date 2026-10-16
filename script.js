@@ -17,7 +17,7 @@ function renderSite(){
  if(d.heroSlides){$$('[data-hero-slide]').forEach((slide,i)=>{const item=d.heroSlides[i],img=$('img',slide);if(item&&img)img.src=item.image});$$('[data-hero-panel]').forEach((panel,i)=>{const item=d.heroSlides[i];if(!item)return;const map=[['[data-hero-kicker]','kicker'],['[data-hero-title]','title'],['[data-hero-accent]','accent'],['[data-hero-intro]','intro']];map.forEach(([sel,key])=>{const el=$(sel,panel);if(el)el.textContent=item[key]||''});const c=$('[data-hero-cta]',panel);if(c){c.textContent=item.ctaLabel||'Explore';c.href=item.ctaHref||'/'}})}
  const grid=$('#serviceGrid');if(grid&&d.services)grid.innerHTML=d.services.map(s=>`<article class="style-card reveal"><img src="${s.image}" alt="${escapeHtml(s.name)} by Planit Hair" loading="lazy"><div class="style-card-content"><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.description)}</p><button type="button" data-book-treatment="${escapeHtml(s.name)}">Book this style</button></div></article>`).join('');
  const care=$('#aftercareList');if(care&&d.aftercare)care.innerHTML=d.aftercare.map((x,i)=>`<article class="care-row reveal"><span>0${i+1}</span><h3>${escapeHtml(x.title)}</h3><p>${escapeHtml(x.text)}</p></article>`).join('');
- renderGallery(d);initGalleryViewer();renderPrices('women');renderBooking(d);syncLinks(d);wireBookButtons();observeReveals()
+ renderGallery(d);initGalleryViewer();renderHomeTreatments(d);const initialCategory=new URLSearchParams(location.search).get('category')==='men'?'men':'women';$$('[data-price-tab]').forEach(b=>{b.classList.toggle('is-active',b.dataset.priceTab===initialCategory);b.setAttribute('aria-selected',String(b.dataset.priceTab===initialCategory))});renderPrices(initialCategory);renderBooking(d);syncLinks(d);wireBookButtons();observeReveals()
 }
 function renderGallery(d){$$('[data-gallery]').forEach(el=>{const limit=Number(el.dataset.galleryLimit||0),items=limit?(d.gallery||[]).slice(0,limit):(d.gallery||[]);el.innerHTML=items.map((x,i)=>`<button class="gallery-card reveal" type="button" data-gallery-card data-gallery-index="${i}" data-gallery-treatment="${escapeHtml(x.treatment||'')}" aria-label="View ${escapeHtml(x.title)}"><img src="${x.image}" alt="${escapeHtml(x.title)} by Planit Hair" loading="lazy" decoding="async"><span class="gallery-card-shade"></span><span class="gallery-card-meta"><small>${String(i+1).padStart(2,'0')}</small><strong>${escapeHtml(x.title)}</strong><i>↗</i></span></button>`).join('');$$('img',el).forEach(img=>img.addEventListener('error',()=>{if(img.dataset.fallbackApplied)return;img.dataset.fallbackApplied='1';img.src='/assets/images/hero.webp'},{once:true}))})}
 function initGalleryViewer(){
@@ -37,12 +37,51 @@ function initGalleryViewer(){
   dialog.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();move(-1)}if(e.key==='ArrowRight'){e.preventDefault();move(1)}});
   $('.gallery-viewer-book',dialog)?.addEventListener('click',()=>{const treatment=cards[current]?.dataset.galleryTreatment||'';close();location.href='/book?treatment='+encodeURIComponent(treatment)});
 }
-function renderPrices(cat){const list=$('#priceList');if(!list||!siteData?.pricing)return;const data=siteData.pricing[cat]||[];list.innerHTML=data.map((x,i)=>`<details class="price-item" ${i===0?'open':''}><summary><h3>${escapeHtml(x.name)}</h3><span class="price-from">from ${escapeHtml(x.from)}</span><span class="price-toggle">+</span></summary><div class="price-options">${(x.items||[]).map(y=>`<div class="price-row"><span>${escapeHtml(y.label)}</span><strong>${escapeHtml(y.price)}</strong></div>`).join('')}</div></details>`).join('');const note=$('#priceNote');if(note)note.textContent=siteData.priceNotes?.[cat]||'';$$('.price-item').forEach(item=>item.addEventListener('toggle',()=>{if(item.open)$$('.price-item').forEach(o=>{if(o!==item)o.open=false})}))}
-function renderBooking(d){const t=$('#treatment');if(t){const names=[...new Set([...(d.pricing?.women||[]),...(d.pricing?.men||[])].map(x=>x.name))];t.innerHTML='<option value="">Choose treatment</option>'+names.map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');const q=new URLSearchParams(location.search).get('treatment');if(q&&names.includes(q))t.value=q}
- const time=$('#time');if(time){const start=480,end=1260,step=15;time.innerHTML='<option value="">Choose time</option>';for(let m=start;m<=end;m+=step){const v=`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;time.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`)}}
- const date=$('#date');if(date)date.min=new Date().toISOString().split('T')[0];
- const h=$('#bookingHeadline');if(h&&d.booking?.headline)h.textContent=d.booking.headline;const tx=$('#bookingText');if(tx&&d.booking?.text)tx.textContent=d.booking.text;const n=$('#availabilityNote');if(n&&d.booking?.availabilityNote)n.textContent=d.booking.availabilityNote;
- const form=$('#bookingForm');if(form&&!form.dataset.wired){form.dataset.wired='1';form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const fd=new FormData(form),phone=(d.contact?.whatsapp||'31634893324').replace(/\D/g,''),msg=`Hi Planit Hair,\n\nI would like to request an appointment.\n\nTreatment: ${fd.get('treatment')}\nDate: ${fd.get('date')}\nTime: ${fd.get('time')}\nName: ${fd.get('name')}${fd.get('notes')?`\n\nExtra information: ${fd.get('notes')}`:''}`;window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank','noopener')})}}
+function priceOptionsFor(d,name,category='') {
+ const categories=category?[category]:['women','men'];
+ return categories.flatMap(cat=>(d.pricing?.[cat]||[]).filter(x=>x.name===name).map(x=>({...x,category:cat})));
+}
+function startingPrice(options) {
+ const prices=options.map(x=>Number(String(x.from||'').replace(/[^0-9,.-]/g,'').replace(',','.'))).filter(x=>Number.isFinite(x)&&x>0);
+ return prices.length?new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR',maximumFractionDigits:2,minimumFractionDigits:0}).format(Math.min(...prices)):'';
+}
+function renderHomeTreatments(d) {
+ const grid=$('#homeTreatments');if(!grid)return;
+ const choices=[
+  {name:'Cornrows',image:'/assets/gallery/cornrows-side.webp',text:'Clean sections, straight lines or a detailed pattern.'},
+  {name:'Fulani braids',image:'/assets/images/hero.webp',text:'Face-framing braids with your choice of finish.'},
+  {name:'Twist',image:'/assets/images/style-twists.webp',text:'A protective twist style with a considered finish.'},
+  {name:'Haircut',image:'/assets/gallery/afro-shape.webp',text:'Curl cuts, fades and a shape that feels like you.'}
+ ];
+ grid.innerHTML=choices.map(choice=>{const options=priceOptionsFor(d,choice.name);if(!options.length)return '';const category=options[0].category;const prices=options.map(x=>`${x.category==='women'?'Women':'Men'} from ${escapeHtml(x.from)}`).join(' · ');return `<article class="treatment-preview"><a class="treatment-preview-image" href="/work" aria-label="See Planit Hair work"><img src="${choice.image}" alt="${escapeHtml(choice.name)} at Planit Hair" loading="lazy" width="525" height="696" /></a><div class="treatment-preview-copy"><h3>${escapeHtml(choice.name)}</h3><p>${escapeHtml(choice.text)}</p><strong>${prices}</strong><a class="treatment-price-link" href="/prices?category=${category}&treatment=${encodeURIComponent(choice.name)}">View options &amp; prices <span aria-hidden="true">↗</span></a></div></article>`}).join('');
+}
+function renderPrices(cat) {
+ const list=$('#priceList');if(!list||!siteData?.pricing)return;
+ const data=siteData.pricing[cat]||[],requested=new URLSearchParams(location.search).get('treatment');
+ const selected=data.some(x=>x.name===requested)?requested:data[0]?.name;
+ list.innerHTML=data.map(x=>`<details class="price-item" ${x.name===selected?'open':''}><summary><h3>${escapeHtml(x.name)}</h3><span class="price-from">from ${escapeHtml(x.from)}</span><span class="price-toggle">+</span></summary><div class="price-options">${(x.items||[]).map(y=>`<div class="price-row"><span>${escapeHtml(y.label)}</span><strong>${escapeHtml(y.price)}</strong></div>`).join('')}<a class="price-request" href="/book?category=${cat}&treatment=${encodeURIComponent(x.name)}">Request this treatment <span aria-hidden="true">↗</span></a></div></details>`).join('');
+ const note=$('#priceNote');if(note)note.textContent=siteData.priceNotes?.[cat]||'';
+ $$('.price-item').forEach(item=>item.addEventListener('toggle',()=>{if(item.open)$$('.price-item').forEach(o=>{if(o!==item)o.open=false})}));
+}
+function localDateKey(date=new Date()) {return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;}
+function renderBooking(d) {
+ const query=new URLSearchParams(location.search),category=['women','men'].includes(query.get('category'))?query.get('category'):'';
+ const treatment=$('#treatment');
+ if(treatment){
+  const names=[...new Set([...(d.pricing?.women||[]),...(d.pricing?.men||[])].map(x=>x.name))];
+  const requested=(query.get('treatment')||'').trim().slice(0,100);
+  treatment.innerHTML='<option value="">Choose treatment</option><option value="Help me choose">Not sure — help me choose</option>'+names.map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join('');
+  if(requested){if(!names.includes(requested)&&requested!=='Help me choose')treatment.insertAdjacentHTML('beforeend',`<option value="${escapeHtml(requested)}">${escapeHtml(requested)} — help me choose</option>`);treatment.value=requested;}
+  const updatePrice=()=>{const hint=$('#bookingPriceHint');if(!hint)return;const options=priceOptionsFor(d,treatment.value,category),from=startingPrice(options),link=`/prices${category?'?category='+category:''}`;hint.innerHTML=from?`<strong>${category?(category==='women'?'Women’s':'Men’s')+' menu · ':''}From ${escapeHtml(from)}</strong><span>The final price depends on your chosen option.</span><a href="${link}">Compare price options ↗</a>`:(treatment.value?'<span>Not sure about the exact style? We’ll help you choose and confirm the price on WhatsApp.</span>':'<span>Choose a style to see its starting price.</span>');};
+  treatment.addEventListener('change',updatePrice);updatePrice();
+ }
+ const time=$('#time');if(time){const toMinutes=x=>{const [h,m]=String(x).split(':').map(Number);return h*60+m;};let start=toMinutes(d.booking?.firstTimeSlot||'08:00'),end=toMinutes(d.booking?.lastTimeSlot||'21:00'),step=Number(d.booking?.slotMinutes)||15;if(!Number.isFinite(start)||!Number.isFinite(end)||end<start){start=480;end=1260;}step=Math.max(5,Math.min(60,step));time.innerHTML='<option value="">Choose preferred time</option>';for(let m=start;m<=end;m+=step){const v=`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;time.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`);}}
+ const date=$('#date');if(date)date.min=localDateKey();
+ const h=$('#bookingHeadline');if(h&&d.booking?.headline)h.textContent=d.booking.headline;
+ const text=$('#bookingText');if(text&&d.booking?.text)text.textContent=d.booking.text;
+ const note=$('#availabilityNote');if(note&&d.booking?.availabilityNote)note.textContent=d.booking.availabilityNote;
+ const form=$('#bookingForm');if(form&&!form.dataset.wired){form.dataset.wired='1';form.addEventListener('submit',e=>{e.preventDefault();if(date)date.min=localDateKey();if(!form.reportValidity())return;const fd=new FormData(form),phone=(d.contact?.whatsapp||'31634893324').replace(/\D/g,''),msg=`Hi Planit Hair,\n\nI would like to request an appointment.\n\nTreatment: ${fd.get('treatment')}${category?'\nPrice list: '+(category==='women'?'Women':'Men'):''}\nPreferred date: ${fd.get('date')}\nPreferred time: ${fd.get('time')}\nName: ${fd.get('name')}${fd.get('notes')?`\n\nExtra information: ${fd.get('notes')}`:''}\n\nCould you confirm the time and final price?`;window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank','noopener');});}
+}
 function syncLinks(d){$$('[data-instagram]').forEach(a=>{if(d.contact?.instagram)a.href=d.contact.instagram});$$('[data-tiktok]').forEach(a=>{if(d.contact?.tiktok)a.href=d.contact.tiktok});$$('[data-whatsapp-direct]').forEach(a=>{const p=(d.contact?.whatsapp||'').replace(/\D/g,'');if(p)a.href='https://wa.me/'+p})}
 function wireBookButtons(){$$('[data-book-treatment]').forEach(btn=>{if(btn.dataset.wired)return;btn.dataset.wired='1';btn.addEventListener('click',()=>{const tr=btn.dataset.bookTreatment||'';location.href='/book?treatment='+encodeURIComponent(tr)})})}
 function observeReveals(){const els=$$('.reveal:not(.is-visible)');if(matchMedia('(prefers-reduced-motion: reduce)').matches){els.forEach(x=>x.classList.add('is-visible'));return}if(!('IntersectionObserver'in window)){els.forEach(x=>x.classList.add('is-visible'));return}const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}}),{threshold:.1});els.forEach(x=>io.observe(x))}

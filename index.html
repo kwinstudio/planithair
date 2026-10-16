@@ -8,6 +8,7 @@
 <meta name="description" content="Planit Hair Rotterdam — explore services, prices and recent work, then request your appointment via WhatsApp." />
 <link rel="icon" href="/assets/images/logo.png" />
 <link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/customer-journey.css" />
 <link rel="stylesheet" href="/cinematic-footer.css" />
 <link rel="stylesheet" href="/hero-fluid.css" />
 </head>
@@ -43,31 +44,25 @@
   <div class="fluid-content">
     <p class="fluid-badge"><span aria-hidden="true"></span>Braids · Locs · Curls <i aria-hidden="true">/</i> Rotterdam North</p>
     <h1 id="hero-title" class="fluid-title" aria-label="Hair with intention."><span aria-hidden="true"><span class="fluid-word" style="--word:0">Hair</span> <span class="fluid-word" style="--word:1">with</span></span><em aria-hidden="true"><span class="fluid-word" style="--word:2">intention.</span></em></h1>
-    <p class="fluid-intro">Protective styling, clean detail<br class="fluid-mobile-break" /> and a finish that feels like <em>you.</em></p>
-    <div class="fluid-actions"><a class="fluid-primary" href="/book">Book appointment <span aria-hidden="true">↗</span></a><a class="fluid-secondary" href="/services">Explore services</a></div>
+    <p class="fluid-intro">Braids, locs, curls &amp; cuts in Rotterdam North.<br />Find your style. Make it <em>yours.</em></p>
+    <div class="fluid-actions"><a class="fluid-primary" href="/book">Book appointment <span aria-hidden="true">↗</span></a><a class="fluid-secondary" href="/prices">View prices</a></div>
+    <p class="fluid-clarity">Choose a preferred time. We confirm your appointment on WhatsApp.</p>
     <a class="fluid-work-link" href="/work"><span class="fluid-portraits" aria-hidden="true"><img src="/assets/gallery/fulani-warm.webp" alt="" width="44" height="54" /><img src="/assets/gallery/cornrows-portrait.webp" alt="" width="44" height="54" /><img src="/assets/gallery/twists-gold.webp" alt="" width="44" height="54" /></span><span>Made at Planit.<small>See the real work ↗</small></span></a>
   </div>
   <div class="fluid-baseline"><span>Texture. Detail. Individuality.</span><a href="#discover">Discover Planit <span aria-hidden="true">↓</span></a><span class="fluid-location">Rotterdam, NL</span></div>
   <button class="fluid-motion" type="button" aria-label="Pause fluid animation" aria-pressed="false" hidden><span aria-hidden="true">Ⅱ</span><span data-fluid-motion-label>Pause motion</span></button>
 </section>
 
-<section class="statement section-pad" id="discover">
-  <div class="shell statement-grid reveal">
-    <p class="section-kicker">Planit Hair</p>
-    <div><h2>Good hair starts with precision, not shortcuts.</h2><p>Explore services, compare prices, see real work and request your appointment without searching through one endless page.</p></div>
+<section class="home-treatments section-pad" id="discover">
+  <div class="shell">
+    <div class="section-heading"><div><p class="section-kicker">Your next look</p><h2>Find your style.<br />Know the starting price.</h2></div><div class="choice-intro"><p>See a few of our styles below. Compare the full options before requesting your appointment.</p><a class="text-link" href="/prices">Full price list <span aria-hidden="true">↗</span></a></div></div>
+    <div class="treatment-preview-grid" id="homeTreatments"></div>
+    <noscript><p><a class="text-link" href="/prices">View all treatments and prices ↗</a></p></noscript>
+    <p class="starting-price-note">Starting prices vary by style and option. Check the full price list for what is included.</p>
   </div>
 </section>
-
-<section class="site-routes section-pad">
-  <div class="shell">
-    <div class="section-heading reveal"><div><p class="section-kicker">Explore</p><h2>Everything has its place.</h2></div><p>Clear pages for the things clients actually want to know.</p></div>
-    <div class="route-grid">
-      <a class="route-card reveal" href="/services"><span>01</span><div><small>Services</small><h3>Find your style.</h3></div><b>↗</b></a>
-      <a class="route-card reveal" href="/prices"><span>02</span><div><small>Prices</small><h3>Know the price.</h3></div><b>↗</b></a>
-      <a class="route-card reveal" href="/work"><span>03</span><div><small>Portfolio</small><h3>See the work.</h3></div><b>↗</b></a>
-      <a class="route-card route-card-dark reveal" href="/book"><span>04</span><div><small>Appointment</small><h3>Book your look.</h3></div><b>↗</b></a>
-    </div>
-  </div>
+<section class="client-help">
+  <div class="shell client-help-inner"><div><p class="section-kicker">Not sure what to choose?</p><h2>Let’s find your look.</h2><p>Ask about a style, hair preparation or the salon location before requesting an appointment.</p></div><a class="button button-primary" data-whatsapp-direct href="https://wa.me/31634893324" target="_blank" rel="noreferrer">Ask on WhatsApp <span aria-hidden="true">↗</span></a></div>
 </section>
 
 <section class="work-section section-pad">
@@ -75,7 +70,7 @@
     <div><p class="section-kicker">Recent work</p><h2>Made at Planit.</h2></div>
     <div class="work-heading-copy"><p>A quick preview of real work from the chair.</p><a class="text-link" href="/work">View full portfolio <span>↗</span></a></div>
   </div>
-  <div class="gallery-grid gallery-preview" data-gallery data-gallery-limit="10"></div>
+  <div class="gallery-grid gallery-preview" data-gallery data-gallery-limit="4"></div>
 </section>
 
 
@@ -84,9 +79,9 @@
     <div class="section-heading reveal">
       <div>
         <p class="section-kicker">On TikTok</p>
-        <h2>See the full video.</h2>
+        <h2>From the chair to the final look.</h2>
       </div>
-      <p>Swipe left or right for the next Planit Hair video. The complete vertical frame stays visible.</p>
+      <p>A look inside Planit Hair: styling, finished looks and the people in the chair.</p>
     </div>
 
     <div class="tiktok-carousel reveal" aria-label="Planit Hair TikTok videos">

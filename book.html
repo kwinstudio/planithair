@@ -12,6 +12,7 @@
   <link rel="icon" href="/assets/images/logo.png" />
   
   <link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/customer-journey.css" />
 </head>
 <body data-page="book" class="page-book">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -42,27 +43,27 @@
 </header>
   <main id="main">
 <section class="page-hero page-hero-book">
-  <div class="shell booking-top reveal"><p class="section-kicker">Appointment</p><h1>Choose it. Send it. <em>Done.</em></h1><p>Your preferred time is a request. Planit Hair confirms availability with you on WhatsApp.</p></div>
+  <div class="shell booking-top reveal"><p class="section-kicker">Appointment</p><h1>Your next look.<br /><em>Let’s plan it.</em></h1><p>Choose your style and preferred time. Continue to WhatsApp to send your request. Planit Hair confirms the appointment with you.</p></div>
 </section>
 <section class="booking-section section-pad" id="book">
   <div class="shell booking-layout">
     <div class="booking-copy reveal">
       <p class="section-kicker">Book</p><h2 id="bookingHeadline">Request your appointment.</h2><p id="bookingText">Choose your treatment, date and a 15-minute time slot. WhatsApp opens with your request ready to send.</p>
-      <ol class="booking-steps" aria-label="Booking process"><li><span>01</span>Choose a treatment</li><li><span>02</span>Select date & time</li><li><span>03</span>Send via WhatsApp</li></ol>
+      <ol class="booking-steps" aria-label="Booking process"><li><span>01</span>Choose a treatment</li><li><span>02</span>Select date & time</li><li><span>03</span>Confirm together on WhatsApp</li></ol>
       <div class="booking-contact"><p>Prefer to ask first?</p><a data-whatsapp-direct href="https://wa.me/31634893324" target="_blank" rel="noreferrer">Open WhatsApp ↗</a><a data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram ↗</a></div>
     </div>
     <form class="booking-form reveal" id="bookingForm" novalidate>
-      <div class="field"><label for="treatment">Treatment</label><select id="treatment" name="treatment" required><option value="">Choose treatment</option></select></div>
+      <div class="field"><label for="treatment">Treatment</label><select id="treatment" name="treatment" required><option value="">Choose treatment</option></select><div id="bookingPriceHint" class="booking-price-hint" aria-live="polite"></div></div>
       <div class="form-row">
-        <div class="field"><label for="date">Date</label><input id="date" name="date" type="date" required /></div>
-        <div class="field"><label for="time">Time</label><select id="time" name="time" required><option value="">Choose time</option></select><small>15-minute time slots</small></div>
+        <div class="field"><label for="date">Preferred date</label><input id="date" name="date" type="date" required /></div>
+        <div class="field"><label for="time">Preferred time</label><select id="time" name="time" required><option value="">Choose time</option></select><small>Your preference, not live availability.</small></div>
       </div>
       <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required /></div>
       <div class="field"><label for="notes">Extra information <span>optional</span></label><textarea id="notes" name="notes" rows="4" placeholder="Anything we should know?"></textarea></div>
       <p class="availability-note" id="availabilityNote">Requested times are subject to confirmation via WhatsApp.</p>
       <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-      <button class="button button-light" type="submit">Send appointment request <span aria-hidden="true">↗</span></button>
-      <p class="form-fineprint">Your appointment is only confirmed after Planit Hair replies.</p>
+      <button class="button button-light" type="submit">Continue in WhatsApp <span aria-hidden="true">↗</span></button>
+      <p class="form-fineprint">You send the message in WhatsApp. Your appointment is confirmed after Planit Hair replies.</p>
     </form>
   </div>
 </section>
