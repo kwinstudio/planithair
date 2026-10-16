@@ -9,6 +9,7 @@
 <link rel="icon" href="/assets/images/logo.png" />
 <link rel="preload" as="image" href="/assets/gallery/fulani-honey.webp" />
 <link rel="stylesheet" href="/styles.css" />
+<link rel="stylesheet" href="/cinematic-footer.css" />
 </head>
 <body data-page="home" class="page-home">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -196,17 +197,42 @@
   </div>
 </section>
 
-<section class="final-cta section-pad"><div class="shell final-cta-inner reveal"><p class="section-kicker">Appointment</p><h2>Ready for your next look?</h2><p>Choose your treatment, preferred date and time. Your request goes straight to WhatsApp.</p><a class="button button-primary" href="/book">Book appointment</a></div></section></main>
+</main>
 
-<footer class="site-footer">
-  <div class="shell footer-grid">
-    <div><p class="footer-title">Planit Hair</p><p>Rotterdam North<br />Braids · Locs · Curls · Cuts</p></div>
-    <div><p class="footer-label">Explore</p><a href="/services">Services</a><a href="/prices">Prices</a><a href="/work">Recent work</a><a href="/book">Book</a></div>
-    <div><p class="footer-label">Connect</p><a data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram ↗</a><a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">TikTok ↗</a></div>
-    <div class="footer-bottom"><span>© <span id="year"></span> Planit Hair</span><span>Rotterdam, NL</span></div>
+<footer class="cinematic-footer" aria-label="Planit Hair — book and connect">
+  <div class="cinema-media" aria-hidden="true">
+    <img src="/assets/images/footer-poster.jpg" alt="" loading="lazy" width="432" height="768" />
+    <video muted loop playsinline preload="none" tabindex="-1" data-footer-video>
+      <source data-src="/assets/video/footer-atmosphere.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="cinema-shade" aria-hidden="true"></div>
+  <div class="cinema-invite">
+    <p class="cinema-eyebrow">A little care. A whole new feeling.</p>
+    <h2 class="cinema-title">Your next look<br /><em>starts here.</em></h2>
+    <a class="cinema-book" href="/book">Book appointment <span class="cinema-dot" aria-hidden="true"></span><span aria-hidden="true">↗</span></a>
+    <p class="cinema-note">Choose your style. Request your time.<br />We’ll confirm with you on WhatsApp.</p>
+  </div>
+  <div class="cinema-connect">
+    <div class="cinema-connect-heading"><p>Stay in the loop.</p><p>Braids. Locs. Curls. You.</p></div>
+    <div class="cinema-links-row">
+      <div class="cinema-socials">
+        <a data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+        <a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">TikTok <span aria-hidden="true">↗</span></a>
+      </div>
+      <nav class="cinema-nav" aria-label="Footer"><a href="/services">Services</a><a href="/prices">Prices</a><a href="/work">Our work</a></nav>
+      <span class="cinema-location">Rotterdam North, NL</span>
+    </div>
+  </div>
+  <div class="cinema-wordmark" aria-label="Planit Hair"><span aria-hidden="true">PLANIT HAIR</span></div>
+  <div class="cinema-colophon"><span>© <span id="year">2026</span> Planit Hair</span><a href="#top">Back to top ↑</a></div>
+  <button class="cinema-motion" type="button" aria-label="Pause background video" aria-pressed="false" hidden><span aria-hidden="true">Ⅱ</span><span data-motion-label>Pause film</span></button>
+  <div class="cinema-cursor" aria-hidden="true">Your next look <span>↗</span></div>
+</footer>
   </div>
 </footer>
 <a class="mobile-book" href="/book">Book appointment</a>
 <script src="/script.js" defer></script>
+<script src="/cinematic-footer.js" defer></script>
 </body>
 </html>
