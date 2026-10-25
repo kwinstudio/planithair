@@ -3,78 +3,99 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#f7f2e8" />
+  <meta name="theme-color" content="#f4f3f1" />
   <title>Book Appointment | Planit Hair Rotterdam</title>
   <meta name="description" content="Request your Planit Hair appointment in Rotterdam. Choose a treatment, date and 15-minute time slot and send via WhatsApp." />
   <meta property="og:title" content="Book Appointment | Planit Hair Rotterdam" />
   <meta property="og:description" content="Request your Planit Hair appointment in Rotterdam. Choose a treatment, date and 15-minute time slot and send via WhatsApp." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="/assets/images/logo.png" />
-  
-  <link rel="stylesheet" href="/styles.css" />
-<link rel="stylesheet" href="/customer-journey.css" />
+<link rel="preload" href="/assets/fonts/inter-tight-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/north.css" />
 <link rel="stylesheet" href="/booking-modal.css" />
-</head>
-<body data-page="book" class="page-book">
-  <a class="skip-link" href="#main">Skip to content</a>
   
-<header class="site-header" id="top">
-  <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Planit Hair home"><img src="/assets/images/logo.png" alt="Planit Hair" /></a>
-    
-<nav class="desktop-nav" aria-label="Primary navigation">
-  <a data-nav="home" href="/">Home</a>
-  <a data-nav="services" href="/services">Services</a>
-  <a data-nav="prices" href="/prices">Prices</a>
-  <a data-nav="work" href="/work">Work</a>
-</nav>
-    <a class="header-cta" data-nav="book" href="/book">Book appointment</a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
+  </head>
+<body data-page="book" class="page-book" id="top">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="n-top" id="siteTop">
+  <div class="n-marquee" role="region" aria-label="Highlights">
+    <div class="n-marquee-track">
+      <span>Braids · Locs · Curls</span><i aria-hidden="true">✦</i>
+      <span>Confirmed via WhatsApp</span><i aria-hidden="true">✦</i>
+      <span>Rotterdam North</span><i aria-hidden="true">✦</i>
+      <span>Women &amp; men</span><i aria-hidden="true">✦</i>
+      <span>Clear starting prices</span><i aria-hidden="true">✦</i>
+      <span>Protective styles</span><i aria-hidden="true">✦</i>
+    </div>
   </div>
-  
-<div class="mobile-menu" id="mobileMenu" hidden>
-  <div class="shell mobile-menu-inner">
-    <a data-nav="home" href="/">Home</a>
-    <a data-nav="services" href="/services">Services</a>
-    <a data-nav="prices" href="/prices">Prices</a>
-    <a data-nav="work" href="/work">Work</a>
-    <a class="mobile-menu-book" data-nav="book" href="/book">Book appointment</a>
-  </div>
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a data-nav="services" href="/services">Services</a>
+        <a data-nav="prices" href="/prices">Prices</a>
+        <a data-nav="work" href="/work">Work</a>
+      </nav>
+      <a class="brand" href="/" aria-label="Planit Hair home"><span class="brand-word">PLANIT</span><span class="brand-sub">HAIR</span></a>
+      <div class="header-actions">
+        <a class="header-link" data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram</a>
+        <a class="header-cta" data-nav="book" href="/book">Book</a>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <nav class="mobile-menu-inner" aria-label="Mobile navigation">
+        <a data-nav="home" href="/">Home</a>
+        <a data-nav="services" href="/services">Services</a>
+        <a data-nav="prices" href="/prices">Prices</a>
+        <a data-nav="work" href="/work">Work</a>
+        <a class="mobile-menu-book" data-nav="book" href="/book">Book appointment →</a>
+      </nav>
+    </div>
+  </header>
 </div>
-</header>
-  <main id="main">
-<section class="quick-book-landing section-pad" id="book">
-  <div class="shell quick-book-landing-inner">
-    <p class="section-kicker">Planit Hair · Rotterdam North</p>
-    <h1>Your next look.<br /><em>A few details away.</em></h1>
+
+<main id="main">
+<section class="n-book" id="book">
+  <div class="shell">
+    <p class="n-kicker">Planit Hair · Rotterdam North</p>
+    <h1>Your next look. A few details away.</h1>
     <p>Tell us your style, preferred day and name. We’ll confirm your appointment with you on WhatsApp.</p>
-    <a class="button button-primary" href="/book" data-reopen-booking>Start your request <span aria-hidden="true">↗</span></a>
-    <a class="text-link" data-whatsapp-direct href="https://wa.me/31634893324" target="_blank" rel="noreferrer">Prefer to ask first? WhatsApp us ↗</a>
+    <a class="n-btn" href="/book" data-reopen-booking>Start your request <span aria-hidden="true">→</span></a>
+    <a class="n-link" data-whatsapp-direct href="https://wa.me/31634893324" target="_blank" rel="noreferrer">Prefer to ask first? WhatsApp us <span aria-hidden="true">↗</span></a>
     <noscript><p>To request an appointment, <a href="https://wa.me/31634893324">contact Planit Hair on WhatsApp</a>.</p></noscript>
   </div>
 </section>
-<section class="faq-section section-pad">
+<section class="n-section">
   <div class="shell faq-layout">
-    <div class="reveal"><p class="section-kicker">Before you book</p><h2>Good to know.</h2></div>
-    <div class="faq-list reveal">
+    <div><p class="n-kicker">Before you book</p><h2 class="n-serif n-serif-l" style="margin-top:12px">Good to know…</h2></div>
+    <div class="faq-list">
       <details><summary>Is my selected time confirmed immediately?<span>+</span></summary><p>No. Your selected time is a request. Planit Hair confirms the final appointment through WhatsApp.</p></details>
       <details><summary>How early should I arrive?<span>+</span></summary><p>Please arrive no more than 10 minutes early so the previous appointment can finish comfortably.</p></details>
       <details><summary>How should I prepare my hair?<span>+</span></summary><p>Please arrive with clean, detangled hair unless another preparation has been agreed beforehand.</p></details>
       <details><summary>Can I bring someone with me?<span>+</span></summary><p>Space is limited, so please keep guests to a minimum unless agreed in advance.</p></details>
     </div>
   </div>
-</section></main>
-  
+</section>
+</main>
+
 <footer class="site-footer">
   <div class="shell footer-grid">
-    <div><p class="footer-title">Planit Hair</p><p>Rotterdam North<br />Braids · Locs · Curls · Cuts</p></div>
-    <div><p class="footer-label">Explore</p><a href="/services">Services</a><a href="/prices">Prices</a><a href="/work">Recent work</a><a href="/book">Book</a></div>
-    <div><p class="footer-label">Connect</p><a data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram ↗</a><a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">TikTok ↗</a></div>
-    <div class="footer-bottom"><span>© <span id="year"></span> Planit Hair</span><span>Rotterdam, NL</span></div>
+    <div><p class="footer-title">Your next look starts here.</p><p>Rotterdam North · Braids · Locs · Curls · Cuts<br />Choose your style, request a time — we confirm on WhatsApp.</p></div>
+    <div><p class="footer-label">Explore</p><a href="/services">Services</a><a href="/prices">Prices</a><a href="/work">Work</a><a href="/book">Book</a></div>
+    <div><p class="footer-label">Connect</p><a data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram ↗</a><a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">TikTok ↗</a><a data-whatsapp-direct href="https://wa.me/31634893324" target="_blank" rel="noreferrer">WhatsApp ↗</a></div>
+    <div class="footer-wordmark" aria-hidden="true">PLANIT HAIR</div>
+    <div class="footer-bottom"><span>© <span id="year"></span> Planit Hair</span><a href="#top">Back to top ↑</a></div>
   </div>
 </footer>
-<a class="mobile-book" href="/book">Book appointment</a>
-  <script src="/script.js" defer></script>
+
+<a class="mobile-book n-sticky" href="/book" aria-label="Book appointment">
+  <img src="/assets/gallery/cornrows-portrait.webp" alt="" width="40" height="50" />
+  <span class="n-sticky-text"><strong>Your next look</strong><small>Confirmed via WhatsApp</small></span>
+  <span class="n-sticky-btn">Book</span>
+</a>
+<script src="/script.js" defer></script>
 <script src="/booking-modal.js" defer></script>
+<script src="/north.js" defer></script>
 </body>
 </html>

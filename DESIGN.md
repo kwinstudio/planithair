@@ -1,53 +1,29 @@
 # Planit Hair Design System
 
 ## Brand personality
-Editorial, confident, warm, modern and detail-focused. The site should feel like a boutique hair studio rather than a generic beauty template.
+Editorial streetwear-store energy applied to a hair studio: confident, minimal, image-led. Off-white surfaces, tight grotesk display type, serif accents and a cinematic dark hero.
 
-## Visual principles
-- Low visual density with deliberate whitespace.
-- Strong photography and typography before decorative UI.
-- Forest green as the action/brand anchor; warm cream as the dominant surface.
-- No gradients, glassmorphism or excessive card chrome.
-- Rounded corners are restrained and used mainly for media, forms and interactive controls.
+## Files
+- `north.css` — the whole theme (tokens, layout, components, responsive).
+- `north.js` — marquee loop, header states, hero video, drag-to-explore slider, row arrows, pixel-block image reveal.
+- `booking-modal.css` — the quick booking dialog in the same style.
+- Fonts are self-hosted in `assets/fonts` (Inter Tight, Inter, Newsreader — SIL OFL).
 
 ## Tokens
-- `--ink`: #183a2a
-- `--ink-deep`: #0f281d
-- `--cream`: #f7f2e8
-- `--paper`: #fffdf8
-- `--sage`: #dfe8dd
-- `--muted`: #68766c
-- `--line`: rgba(24,58,42,.14)
-- `--accent`: #183a2a
+- `--bg`: #f4f3f1 (page) · `--paper`: #fff · `--tile`: #e8e7e4 (image tiles) · `--lav`: #ebe7eb (showcase)
+- `--ink`: #0e0e0e · `--muted`: #707070 · `--line`: rgba(14,14,14,.12) · `--dark`: #121110 (hero/footer)
 
 ## Typography
-- Display: Georgia / Times New Roman, editorial serif.
-- UI/body: Inter/Arial/system sans.
-- Body copy max width: ~65ch.
+- Display: Inter Tight 600/700, tight tracking (-.05em), used for big titles and uppercase style names.
+- Accent: Newsreader 600 for section titles with an ellipsis ("Made at Planit…").
+- UI/body: Inter 400–600, small sizes; labels are 10–11px uppercase with wide tracking.
 
-## Spacing scale
-8, 12, 16, 24, 32, 48, 64, 96 px.
-
-## Radius
-- Small: 12px
-- Medium: 18px
-- Media: 28px
-- Pills only for compact CTAs/tabs.
+## Components
+- Black marquee bar + header with centred wordmark.
+- Square-cornered buttons (black, or white on dark); pills for secondary links.
+- Product-style cards: 4:5 image on a grey tile, name left, price right, swatches for Women/Men.
+- Sticky booking bar at the bottom (like a sticky add-to-cart).
 
 ## Motion
-- 140–240ms for micro-interactions.
-- Transform and opacity only where possible.
-- No decorative continuous motion.
-- Respect `prefers-reduced-motion`.
-
-## Responsive
-- Mobile first.
-- Sticky bottom booking action on mobile.
-- Desktop uses 12-column editorial composition.
-- No hover-only critical controls.
-
-## Accessibility
-- Visible `:focus-visible` outlines.
-- Semantic buttons/links/forms.
-- 44px minimum touch targets for primary controls.
-- High text contrast.
+- Pixel-block reveal on images, word-rise on hero/footer titles, slow hero zoom.
+- Everything respects `prefers-reduced-motion`.

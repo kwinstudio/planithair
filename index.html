@@ -3,156 +3,193 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<meta name="theme-color" content="#f7f2e8" />
+<meta name="theme-color" content="#111111" />
 <title>Planit Hair | Braids, Locs & Curls in Rotterdam</title>
 <meta name="description" content="Planit Hair Rotterdam — explore services, prices and recent work, then request your appointment via WhatsApp." />
 <link rel="icon" href="/assets/images/logo.png" />
-<link rel="stylesheet" href="/styles.css" />
-<link rel="stylesheet" href="/customer-journey.css" />
+<link rel="preload" href="/assets/fonts/inter-tight-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/north.css" />
 <link rel="stylesheet" href="/booking-modal.css" />
-<link rel="stylesheet" href="/cinematic-footer.css" />
-<link rel="stylesheet" href="/hero-fluid.css" />
 </head>
 <body data-page="home" class="page-home" id="top">
 <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header" id="siteHeader">
-  <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="Planit Hair home"><img src="/assets/images/logo.png" alt="Planit Hair" /></a>
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      <a data-nav="home" href="/">Home</a>
-      <a data-nav="services" href="/services">Services</a>
-      <a data-nav="prices" href="/prices">Prices</a>
-      <a data-nav="work" href="/work">Work</a>
-    </nav>
-    <a class="header-cta" data-nav="book" href="/book">Book appointment</a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
-  </div>
-  <div class="mobile-menu" id="mobileMenu" hidden>
-    <div class="shell mobile-menu-inner">
-      <a data-nav="home" href="/">Home</a>
-      <a data-nav="services" href="/services">Services</a>
-      <a data-nav="prices" href="/prices">Prices</a>
-      <a data-nav="work" href="/work">Work</a>
-      <a class="mobile-menu-book" data-nav="book" href="/book">Book appointment</a>
+<div class="n-top" id="siteTop">
+  <div class="n-marquee" role="region" aria-label="Highlights">
+    <div class="n-marquee-track">
+      <span>Braids · Locs · Curls</span><i aria-hidden="true">✦</i>
+      <span>Confirmed via WhatsApp</span><i aria-hidden="true">✦</i>
+      <span>Rotterdam North</span><i aria-hidden="true">✦</i>
+      <span>Women &amp; men</span><i aria-hidden="true">✦</i>
+      <span>Clear starting prices</span><i aria-hidden="true">✦</i>
+      <span>Protective styles</span><i aria-hidden="true">✦</i>
     </div>
   </div>
-</header>
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a data-nav="services" href="/services">Services</a>
+        <a data-nav="prices" href="/prices">Prices</a>
+        <a data-nav="work" href="/work">Work</a>
+      </nav>
+      <a class="brand" href="/" aria-label="Planit Hair home"><span class="brand-word">PLANIT</span><span class="brand-sub">HAIR</span></a>
+      <div class="header-actions">
+        <a class="header-link" data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram</a>
+        <a class="header-cta" data-nav="book" href="/book">Book</a>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <nav class="mobile-menu-inner" aria-label="Mobile navigation">
+        <a data-nav="home" href="/">Home</a>
+        <a data-nav="services" href="/services">Services</a>
+        <a data-nav="prices" href="/prices">Prices</a>
+        <a data-nav="work" href="/work">Work</a>
+        <a class="mobile-menu-book" data-nav="book" href="/book">Book appointment →</a>
+      </nav>
+    </div>
+  </header>
+</div>
+
 <main id="main">
-<section class="fluid-hero" id="home" aria-labelledby="hero-title">
-  <canvas class="fluid-canvas" aria-hidden="true"></canvas>
-  <div class="fluid-scrim" aria-hidden="true"></div>
-  <div class="fluid-content">
-    <p class="fluid-badge"><span aria-hidden="true"></span>Braids · Locs · Curls <i aria-hidden="true">/</i> Rotterdam North</p>
-    <h1 id="hero-title" class="fluid-title" aria-label="Hair with intention."><span aria-hidden="true"><span class="fluid-word" style="--word:0">Hair</span> <span class="fluid-word" style="--word:1">with</span></span><em aria-hidden="true"><span class="fluid-word" style="--word:2">intention.</span></em></h1>
-    <p class="fluid-intro">Braids, locs, curls &amp; cuts in Rotterdam North.<br />Find your style. Make it <em>yours.</em></p>
-    <div class="fluid-actions"><a class="fluid-primary" href="/book">Book appointment <span aria-hidden="true">↗</span></a><a class="fluid-secondary" href="/prices">View prices</a></div>
-    <p class="fluid-clarity">Choose a preferred time. We confirm your appointment on WhatsApp.</p>
-    <a class="fluid-work-link" href="/work"><span class="fluid-portraits" aria-hidden="true"><img src="/assets/gallery/fulani-warm.webp" alt="" width="44" height="54" /><img src="/assets/gallery/cornrows-portrait.webp" alt="" width="44" height="54" /><img src="/assets/gallery/twists-gold.webp" alt="" width="44" height="54" /></span><span>Made at Planit.<small>See the real work ↗</small></span></a>
+<section class="n-hero" aria-labelledby="hero-title">
+  <div class="n-hero-media" aria-hidden="true">
+    <figure><img src="/assets/images/style-curls.webp" alt="" width="662" height="882" /></figure>
+    <figure class="is-video"><img src="/assets/images/footer-poster.jpg" alt="" width="432" height="768" /><video muted loop playsinline autoplay preload="metadata" poster="/assets/images/footer-poster.jpg"><source src="/assets/video/footer-atmosphere.mp4" type="video/mp4" /></video></figure>
+    <figure><img src="/assets/images/style-afro.webp" alt="" width="662" height="882" /></figure>
+    <figure><img src="/assets/images/style-twists.webp" alt="" width="662" height="782" /></figure>
   </div>
-  <div class="fluid-baseline"><span>Texture. Detail. Individuality.</span><a href="#discover">Discover Planit <span aria-hidden="true">↓</span></a><span class="fluid-location">Rotterdam, NL</span></div>
-  <button class="fluid-motion" type="button" aria-label="Pause fluid animation" aria-pressed="false" hidden><span aria-hidden="true">Ⅱ</span><span data-fluid-motion-label>Pause motion</span></button>
+  <div class="n-hero-shade" aria-hidden="true"></div>
+  <div class="n-hero-content">
+    <p class="n-eyebrow">Braids · Locs · Curls / Rotterdam North</p>
+    <h1 id="hero-title" class="n-hero-title">Welcome to Planit</h1>
+    <a class="n-btn n-btn-light" href="/book">Book appointment</a>
+  </div>
+  <p class="n-hero-corner n-hero-corner-left">Hair with intention</p>
+  <a class="n-hero-corner n-hero-corner-right" href="#discover">Scroll to discover <span aria-hidden="true">↓</span></a>
 </section>
 
-<section class="home-treatments section-pad" id="discover">
+<section class="n-showcase" id="discover" aria-label="Signature styles">
+  <div class="n-showcase-track" data-drag-track tabindex="0" aria-label="Signature styles, scroll horizontally">
+    <article class="n-slide">
+      <div class="n-slide-copy">
+        <p class="n-kicker">Signature styles — 001</p>
+        <h2>“Cornrows” clean parts &amp; patterns</h2>
+        <p class="n-price" data-from="Cornrows">from €50</p>
+        <a class="n-link" href="/book?treatment=Cornrows">Book now <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="n-slide-media" data-px><img src="/assets/images/style-cornrows.webp" alt="Cornrows by Planit Hair" width="662" height="830" loading="lazy" draggable="false" /></figure>
+    </article>
+    <article class="n-slide">
+      <div class="n-slide-copy">
+        <p class="n-kicker">Signature styles — 002</p>
+        <h2>“Twists” protective &amp; defined</h2>
+        <p class="n-price" data-from="Twist|Knotless braids / twist">from €65</p>
+        <a class="n-link" href="/book?treatment=Twist">Book now <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="n-slide-media" data-px><img src="/assets/images/style-twists.webp" alt="Twists by Planit Hair" width="662" height="782" loading="lazy" draggable="false" /></figure>
+    </article>
+    <article class="n-slide">
+      <div class="n-slide-copy">
+        <p class="n-kicker">Signature styles — 003</p>
+        <h2>“Curls” shape &amp; definition</h2>
+        <p class="n-price" data-from="Haircut">from €35</p>
+        <a class="n-link" href="/book?treatment=Haircut">Book now <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="n-slide-media" data-px><img src="/assets/images/style-curls.webp" alt="Defined curls by Planit Hair" width="662" height="882" loading="lazy" draggable="false" /></figure>
+    </article>
+    <article class="n-slide">
+      <div class="n-slide-copy">
+        <p class="n-kicker">Signature styles — 004</p>
+        <h2>“Cuts” fades &amp; afro shape</h2>
+        <p class="n-price" data-from="Haircut">from €35</p>
+        <a class="n-link" href="/book?treatment=Haircut">Book now <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="n-slide-media" data-px><img src="/assets/images/style-afro.webp" alt="Afro shape by Planit Hair" width="662" height="882" loading="lazy" draggable="false" /></figure>
+    </article>
+  </div>
+  <p class="n-drag-hint" aria-hidden="true">Drag to explore <span>→</span></p>
+</section>
+
+<section class="n-section" aria-labelledby="catalog-title">
   <div class="shell">
-    <div class="section-heading"><div><p class="section-kicker">Your next look</p><h2>Find your style.<br />Know the starting price.</h2></div><div class="choice-intro"><p>See a few of our styles below. Compare the full options before requesting your appointment.</p><a class="text-link" href="/prices">Full price list <span aria-hidden="true">↗</span></a></div></div>
-    <div class="treatment-preview-grid" id="homeTreatments"></div>
-    <noscript><p><a class="text-link" href="/prices">View all treatments and prices ↗</a></p></noscript>
-    <p class="starting-price-note">Starting prices vary by style and option. Check the full price list for what is included.</p>
+    <div class="n-head">
+      <h2 id="catalog-title" class="n-display-m">Find your style</h2>
+      <div class="n-head-side"><p>Starting prices per style. Final price is confirmed together on WhatsApp.</p><a class="n-pill" href="/prices">Full price list <span aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="n-grid n-grid-4" id="homeTreatments"></div>
+    <noscript><p><a class="n-link" href="/prices">View all treatments and prices →</a></p></noscript>
   </div>
 </section>
-<section class="client-help">
-  <div class="shell client-help-inner"><div><p class="section-kicker">Not sure what to choose?</p><h2>Let’s find your look.</h2><p>Ask about a style, hair preparation or the salon location before requesting an appointment.</p></div><a class="button button-primary" data-whatsapp-direct href="https://wa.me/31634893324" target="_blank" rel="noreferrer">Ask on WhatsApp <span aria-hidden="true">↗</span></a></div>
-</section>
 
-<section class="work-section section-pad">
-  <div class="shell work-heading reveal">
-    <div><p class="section-kicker">Recent work</p><h2>Made at Planit.</h2></div>
-    <div class="work-heading-copy"><p>A quick preview of real work from the chair.</p><a class="text-link" href="/work">View full portfolio <span>↗</span></a></div>
+<section class="n-band">
+  <div class="shell n-band-inner">
+    <div><p class="n-kicker">Not sure what to choose?</p><h2 class="n-serif">Let’s find your look.</h2></div>
+    <p>Ask about a style, hair preparation or the salon location before requesting an appointment.</p>
+    <a class="n-btn" data-whatsapp-direct href="https://wa.me/31634893324" target="_blank" rel="noreferrer">Ask on WhatsApp</a>
   </div>
-  <div class="gallery-grid gallery-preview" data-gallery data-gallery-limit="4"></div>
 </section>
 
-
-<section class="home-social section-pad" id="social">
+<section class="n-section" aria-labelledby="work-title">
   <div class="shell">
-    <div class="section-heading reveal">
-      <div>
-        <p class="section-kicker">On TikTok</p>
-        <h2>From the chair to the final look.</h2>
-      </div>
-      <p>A look inside Planit Hair: styling, finished looks and the people in the chair.</p>
+    <div class="n-head n-head-row">
+      <h2 id="work-title" class="n-serif n-serif-l">Made at Planit…</h2>
+      <div class="n-row-controls"><a class="n-pill" href="/work">View all <span aria-hidden="true">→</span></a><button type="button" class="n-arrow" data-row-prev aria-label="Previous">‹</button><button type="button" class="n-arrow" data-row-next aria-label="Next">›</button></div>
     </div>
+    <div class="n-row gallery-preview" data-gallery data-gallery-limit="8" data-row></div>
+  </div>
+</section>
 
-    <div class="tiktok-carousel reveal" aria-label="Planit Hair TikTok videos">
-      <div class="tiktok-track" id="tiktokTrack">
-        <article class="social-card social-card-home tiktok-slide" data-tiktok-slide="0">
-          <div class="video-wrap">
-            <img class="tiktok-badge" src="/assets/images/tiktok.png" alt="" aria-hidden="true" />
-            <video controls muted playsinline preload="metadata" poster="/assets/images/tiktok-poster-1.jpg" aria-label="Planit Hair TikTok video one">
-              <source data-chunk-prefix="/assets/video/tiktok-1.part" data-chunk-count="16" type="video/mp4" />
-            </video>
-            <span class="view-count"><span aria-hidden="true">▶</span> 130K</span>
-          </div>
-          <div class="social-home-copy">
-            <div><span class="social-network">TikTok</span><strong>130K views</strong></div>
-            <p>Jullie kennen sws wel zo een boy @gottsonn🔵 is one of them 🤣🤧 #rapper #voorjoupagina #tune #rotterdam #Braids</p>
-            <a class="social-card-link" data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">
-              <img src="/assets/images/tiktok.png" alt="" /> View on TikTok <span>↗</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="social-card social-card-home tiktok-slide" data-tiktok-slide="1">
-          <div class="video-wrap">
-            <img class="tiktok-badge" src="/assets/images/tiktok.png" alt="" aria-hidden="true" />
-            <video controls muted playsinline preload="metadata" poster="/assets/images/tiktok-poster-2.jpg" aria-label="Planit Hair TikTok video two">
-              <source data-chunk-prefix="/assets/video/tiktok-2.part" data-chunk-count="7" type="video/mp4" />
-            </video>
-            <span class="view-count"><span aria-hidden="true">▶</span> 65K</span>
-          </div>
-          <div class="social-home-copy">
-            <div><span class="social-network">TikTok</span><strong>65K views</strong></div>
-            <p>@Jjuannitoo🇻🇪🇨🇴 Did we do it right ? Tagg oasis!!! #animetrend #braids #rotterdam @milla</p>
-            <a class="social-card-link" data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">
-              <img src="/assets/images/tiktok.png" alt="" /> View on TikTok <span>↗</span>
-            </a>
-          </div>
-        </article>
-      </div>
-
-      <div class="tiktok-carousel-controls">
-        <div class="tiktok-dots" aria-label="TikTok video position">
-          <button class="is-active" type="button" data-tiktok-dot="0" aria-label="Show first video" aria-current="true"></button>
-          <button type="button" data-tiktok-dot="1" aria-label="Show second video"></button>
+<section class="n-section n-social" id="social" aria-labelledby="social-title">
+  <div class="shell">
+    <div class="n-head">
+      <h2 id="social-title" class="n-display-m">From the chair</h2>
+      <div class="n-head-side"><p>A look inside Planit Hair: styling, finished looks and the people in the chair.</p><a class="n-pill" data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">@planithair <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div class="n-social-grid">
+      <div class="tiktok-carousel" aria-label="Planit Hair TikTok videos">
+        <div class="tiktok-track" id="tiktokTrack">
+          <article class="social-card tiktok-slide" data-tiktok-slide="0">
+            <div class="video-wrap">
+              <video controls muted playsinline preload="metadata" poster="/assets/images/tiktok-poster-1.jpg" aria-label="Planit Hair TikTok video one">
+                <source data-chunk-prefix="/assets/video/tiktok-1.part" data-chunk-count="16" type="video/mp4" />
+              </video>
+              <span class="view-count">▶ 130K</span>
+            </div>
+            <div class="n-card-info"><h3>TikTok · 130K views</h3><a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">View ↗</a></div>
+          </article>
+          <article class="social-card tiktok-slide" data-tiktok-slide="1">
+            <div class="video-wrap">
+              <video controls muted playsinline preload="metadata" poster="/assets/images/tiktok-poster-2.jpg" aria-label="Planit Hair TikTok video two">
+                <source data-chunk-prefix="/assets/video/tiktok-2.part" data-chunk-count="7" type="video/mp4" />
+              </video>
+              <span class="view-count">▶ 65K</span>
+            </div>
+            <div class="n-card-info"><h3>TikTok · 65K views</h3><a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">View ↗</a></div>
+          </article>
         </div>
-        <div class="tiktok-arrows">
-          <button type="button" data-tiktok-prev aria-label="Previous TikTok">←</button>
-          <button type="button" data-tiktok-next aria-label="Next TikTok">→</button>
+        <div class="tiktok-carousel-controls">
+          <div class="tiktok-dots" aria-label="TikTok video position">
+            <button class="is-active" type="button" data-tiktok-dot="0" aria-label="Show first video" aria-current="true"></button>
+            <button type="button" data-tiktok-dot="1" aria-label="Show second video"></button>
+          </div>
+          <div class="tiktok-arrows"><button type="button" class="n-arrow" data-tiktok-prev aria-label="Previous TikTok">‹</button><button type="button" class="n-arrow" data-tiktok-next aria-label="Next TikTok">›</button></div>
         </div>
       </div>
-    </div>
-
-    <aside class="instagram-promo reveal">
-      <div class="instagram-collage" aria-hidden="true">
-        <img src="/assets/gallery/cornrows-portrait.webp" alt="" loading="lazy" />
-        <img src="/assets/gallery/fulani-warm.webp" alt="" loading="lazy" />
-        <img src="/assets/gallery/cornrows-closeup.webp" alt="" loading="lazy" />
-      </div>
-      <div class="instagram-promo-copy">
-        <p class="section-kicker">Instagram</p>
-        <h3>More looks.<br />More inspiration.</h3>
+      <aside class="n-insta">
+        <div class="n-insta-collage" aria-hidden="true">
+          <img src="/assets/gallery/cornrows-portrait.webp" alt="" loading="lazy" />
+          <img src="/assets/gallery/fulani-warm.webp" alt="" loading="lazy" />
+          <img src="/assets/gallery/cornrows-closeup.webp" alt="" loading="lazy" />
+        </div>
+        <p class="n-kicker">Instagram</p>
+        <h3 class="n-serif">More looks. More inspiration.</h3>
         <p>Follow @planithair for new styles, available looks and fresh work from the chair.</p>
-        <div class="instagram-actions">
-          <a class="button button-primary" data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Follow on Instagram</a>
-          <a class="text-link" href="/work">See full portfolio <span>↗</span></a>
-        </div>
-      </div>
-    </aside>
+        <a class="n-btn" data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Follow on Instagram</a>
+      </aside>
+    </div>
   </div>
 </section>
-
 </main>
 
 <footer class="cinematic-footer" aria-label="Planit Hair — book and connect">
@@ -165,30 +202,34 @@
   <div class="cinema-shade" aria-hidden="true"></div>
   <div class="cinema-invite">
     <p class="cinema-eyebrow">A little care. A whole new feeling.</p>
-    <h2 class="cinema-title">Your next look<br /><em>starts here.</em></h2>
-    <a class="cinema-book" href="/book">Book appointment <span class="cinema-dot" aria-hidden="true"></span><span aria-hidden="true">↗</span></a>
-    <p class="cinema-note">Choose your style. Request your time.<br />We’ll confirm with you on WhatsApp.</p>
+    <h2 class="cinema-title">Your next look starts here.</h2>
+    <a class="cinema-book" href="/book">Book appointment <span aria-hidden="true">→</span></a>
+    <p class="cinema-note">Choose your style. Request your time. We’ll confirm with you on WhatsApp.</p>
   </div>
   <div class="cinema-connect">
-    <div class="cinema-connect-heading"><p>Stay in the loop.</p><p>Braids. Locs. Curls. You.</p></div>
     <div class="cinema-links-row">
       <div class="cinema-socials">
-        <a data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram <span aria-hidden="true">↗</span></a>
-        <a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">TikTok <span aria-hidden="true">↗</span></a>
+        <a data-instagram href="https://www.instagram.com/planithair" target="_blank" rel="noreferrer">Instagram ↗</a>
+        <a data-tiktok href="https://www.tiktok.com/@planithair?_t=8kdnwwmtk9r&_r=1" target="_blank" rel="noreferrer">TikTok ↗</a>
       </div>
-      <nav class="cinema-nav" aria-label="Footer"><a href="/services">Services</a><a href="/prices">Prices</a><a href="/work">Our work</a></nav>
+      <nav class="cinema-nav" aria-label="Footer"><a href="/services">Services</a><a href="/prices">Prices</a><a href="/work">Work</a></nav>
       <span class="cinema-location">Rotterdam North, NL</span>
     </div>
   </div>
   <div class="cinema-wordmark" aria-label="Planit Hair"><span aria-hidden="true">PLANIT HAIR</span></div>
   <div class="cinema-colophon"><span>© <span id="year">2026</span> Planit Hair</span><a href="#top">Back to top ↑</a></div>
   <button class="cinema-motion" type="button" aria-label="Pause background video" aria-pressed="false" hidden><span aria-hidden="true">Ⅱ</span><span data-motion-label>Pause film</span></button>
-  <div class="cinema-cursor" aria-hidden="true">Your next look <span>↗</span></div>
+  <div class="cinema-cursor" aria-hidden="true">Your next look <span>→</span></div>
 </footer>
-<a class="mobile-book" href="/book">Book appointment</a>
+
+<a class="mobile-book n-sticky" href="/book" aria-label="Book appointment">
+  <img src="/assets/gallery/cornrows-portrait.webp" alt="" width="40" height="50" />
+  <span class="n-sticky-text"><strong>Your next look</strong><small>Confirmed via WhatsApp</small></span>
+  <span class="n-sticky-btn">Book</span>
+</a>
 <script src="/script.js" defer></script>
 <script src="/booking-modal.js" defer></script>
 <script src="/cinematic-footer.js" defer></script>
-<script src="/hero-fluid.js" defer></script>
+<script src="/north.js" defer></script>
 </body>
 </html>
