@@ -99,28 +99,32 @@
     });
   });
 
-  // Pixel-block reveal: images resolve in random blocks as they enter view.
+  // Curtain reveal for images + fade-up for text, staggered per row.
   if (reduced || !('IntersectionObserver' in window)) return;
-  const io = new IntersectionObserver(entries => entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    io.unobserve(e.target);
-    const el = e.target, img = $('img', el);
-    const go = () => requestAnimationFrame(() => el.classList.add('is-revealing'));
-    if (!img || img.complete) go();
-    else { img.addEventListener('load', go, { once: true }); img.addEventListener('error', go, { once: true }); setTimeout(go, 2500); }
-  }), { threshold: .2 });
+  document.documentElement.classList.add('js-reveal');
+  const textTargets = '.n-head,.n-page-head .n-crumbs,.n-page-head h1,.n-page-head-row,.n-band-inner,.n-care-intro,.care-row,.reminder,.price-intro,.n-route,.n-book .shell>*,.faq-layout>*,.n-insta,.n-slide-copy,.n-card-info,.n-card-sub,.n-card-actions,.n-swatches,.gallery-card-meta,.social-card,.footer-grid>div';
+  const io = new IntersectionObserver(entries => {
+    const shown = entries.filter(e => e.isIntersecting).map(e => e.target);
+    shown.sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left || a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+    shown.forEach((watched, i) => {
+      io.unobserve(watched);
+      const el = watched.__revealTarget || watched;
+      el.style.setProperty('--stagger', `${Math.min(i, 6) * 0.08}s`);
+      requestAnimationFrame(() => el.classList.add('is-in'));
+      setTimeout(() => el.style.removeProperty('--stagger'), 1800);
+    });
+  }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  // Clipped elements count as invisible to IntersectionObserver, so watch an unclipped stand-in.
   const setup = el => {
-    if (el.dataset.pxReady) return; el.dataset.pxReady = '1';
-    const cols = 6, rows = 8, layer = document.createElement('span');
-    layer.className = 'n-px'; layer.setAttribute('aria-hidden', 'true');
-    layer.style.gridTemplateColumns = `repeat(${cols},1fr)`; layer.style.gridTemplateRows = `repeat(${rows},1fr)`;
-    let html = '';
-    for (let i = 0; i < cols * rows; i++) html += `<i style="--d:${Math.round(80 + Math.random() * 720)}ms"></i>`;
-    layer.innerHTML = html; el.append(layer);
-    let done = 0; layer.addEventListener('animationend', () => { if (++done >= cols * rows) layer.remove(); });
-    io.observe(el);
+    if (el.dataset.revealReady) return; el.dataset.revealReady = '1';
+    let watched = el;
+    if (el.hasAttribute('data-reveal')) { watched = el.parentElement; if (watched.__revealTarget) watched = el.closest('section') || el; }
+    watched.__revealTarget = el; io.observe(watched);
   };
-  const scan = () => $$('[data-px]').forEach(setup);
+  const scan = () => {
+    $$('[data-reveal]').forEach(setup);
+    $$(textTargets).forEach(el => { if (!el.closest('.n-hero') && !el.hasAttribute('data-rise')) el.setAttribute('data-rise', ''); setup(el); });
+  };
   scan();
   let t = 0; new MutationObserver(() => { clearTimeout(t); t = setTimeout(scan, 30); }).observe(document.body, { childList: true, subtree: true });
 })();

@@ -177,12 +177,16 @@ h1,h2,h3,p{margin:0}
 .gallery-card-meta small{font-size:11.5px;font-weight:400;color:var(--muted)}
 .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1vw,16px);row-gap:28px}
 
-/* Pixel-block image reveal */
-[data-px]{position:relative}
-.n-px{position:absolute;inset:0;z-index:2;display:grid;pointer-events:none}
-.n-px i{background:var(--px,var(--tile));animation:n-px-out .01s steps(1) forwards;animation-delay:var(--d);animation-play-state:paused}
-.is-revealing .n-px i{animation-play-state:running}
-@keyframes n-px-out{to{opacity:0}}
+/* Curtain reveal: images wipe open from the bottom while easing out of a slight zoom */
+[data-reveal]{position:relative}
+.js-reveal [data-reveal]:not(.is-in){clip-path:inset(100% 0 0 0)}
+.js-reveal [data-reveal]:not(.is-in) img{transform:scale(1.14)}
+.js-reveal [data-reveal]{transition:clip-path 1.15s cubic-bezier(.77,0,.18,1) var(--stagger,0s)}
+.js-reveal [data-reveal] img{transition:transform 1.6s var(--ease-out) var(--stagger,0s),opacity .4s}
+.js-reveal [data-reveal].is-in img{transition:transform .9s var(--ease-out)}
+/* Text: soft fade-up for headings and card captions */
+.js-reveal [data-rise]:not(.is-in){opacity:0;transform:translateY(22px)}
+.js-reveal [data-rise]{transition:opacity .9s var(--ease-out) var(--stagger,0s),transform .9s var(--ease-out) var(--stagger,0s)}
 
 /* Band */
 .n-band{border-block:1px solid var(--line);background:var(--paper);margin-bottom:clamp(64px,8vw,120px)}
@@ -407,6 +411,6 @@ h1,h2,h3,p{margin:0}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
   .n-marquee-track{animation:none}
-  .n-px{display:none}
+  .js-reveal [data-reveal],.js-reveal [data-rise]{clip-path:none!important;opacity:1!important;transform:none!important}
   .reveal{opacity:1;transform:none}
 }
